@@ -1,7 +1,8 @@
 """
-BLACS Integration SDK - Simplified
+BLACS Integration SDK with Advanced DSLL Technology
 
-Easy-to-use SDK for integrating BLACS anti-cheat protection into any application.
+Easy-to-use SDK for integrating BLACS anti-cheat protection with revolutionary
+DSLL (Deterministic Syscall Lockstep Ledger) monitoring into any application.
 """
 
 import os
@@ -14,10 +15,10 @@ from ..blacs_system import BLACSSystem
 
 
 class BLACSIntegration:
-    """Simplified BLACS Integration SDK."""
+    """Advanced BLACS Integration SDK with DSLL Technology."""
     
     def __init__(self, app_name: str, app_version: str = "1.0.0"):
-        """Initialize BLACS integration."""
+        """Initialize BLACS integration with DSLL support."""
         self.app_name = app_name
         self.app_version = app_version
         self.app_pid = os.getpid()
@@ -29,13 +30,13 @@ class BLACSIntegration:
         self.blacs_system: Optional[BLACSSystem] = None
     
     def enable_protection(self, protection_level: str = "medium") -> bool:
-        """Enable BLACS anti-cheat protection."""
-        print(f"🛡️  Enabling BLACS protection for {self.app_name}...")
+        """Enable BLACS anti-cheat protection with DSLL technology."""
+        print(f"🛡️  Enabling BLACS protection with DSLL for {self.app_name}...")
         
         self.protection_level = protection_level
         
         try:
-            # Create BLACS system
+            # Create BLACS system with DSLL
             self.blacs_system = BLACSSystem.create_default_system()
             
             # Configure target process for memory monitor
@@ -43,12 +44,16 @@ class BLACSIntegration:
                 self.blacs_system.memory_monitor.set_target_process(self.app_name)
                 self.blacs_system.memory_monitor.add_protected_process(self.app_pid)
             
+            # Add process to DSLL protection
+            self.blacs_system.add_protected_process(self.app_pid)
+            
             # Start monitoring
             self.blacs_system.start_monitoring()
             
             self.is_protected = True
             print(f"✅ BLACS protection enabled for {self.app_name}")
             print(f"🔒 Protection Level: {protection_level.upper()}")
+            print(f"🔍 DSLL Technology: ACTIVE")
             
             return True
             
@@ -80,15 +85,41 @@ class BLACSIntegration:
         self.violation_callbacks[severity] = callback
     
     def get_protection_status(self) -> Dict[str, Any]:
-        """Get current protection status."""
-        return {
+        """Get current protection status including DSLL information."""
+        status = {
             "app_name": self.app_name,
             "app_version": self.app_version,
             "app_pid": self.app_pid,
             "is_protected": self.is_protected,
             "protection_level": self.protection_level,
+            "dsll_technology": "active" if self.is_protected else "inactive",
             "system_status": self.blacs_system.get_system_status() if self.blacs_system else None
         }
+        
+        # Add DSLL-specific information
+        if self.blacs_system and self.blacs_system.dsll_monitor:
+            dsll_stats = self.blacs_system.dsll_monitor.get_statistics()
+            status["dsll_stats"] = dsll_stats
+        
+        return status
+    
+    def export_dsll_ledger(self, filename: str = None) -> bool:
+        """Export DSLL ledger for forensic analysis."""
+        if not self.is_protected or not self.blacs_system:
+            print("❌ Protection not active - cannot export DSLL ledger")
+            return False
+        
+        if filename is None:
+            filename = f"dsll_ledger_{self.app_name}_{int(time.time())}.json"
+        
+        return self.blacs_system.export_dsll_ledger(filename)
+    
+    def get_dsll_statistics(self) -> Dict[str, Any]:
+        """Get detailed DSLL monitoring statistics."""
+        if not self.is_protected or not self.blacs_system or not self.blacs_system.dsll_monitor:
+            return {"error": "DSLL not active"}
+        
+        return self.blacs_system.dsll_monitor.get_statistics()
 
 
 # Decorator for easy protection
