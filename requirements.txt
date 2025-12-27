@@ -1,1 +1,15 @@
-psutil>=5.9.0
+# BLACS - Behavioral Learning Anti-Cheat System
+# Required dependencies for Windows systems
+
+# Core system monitoring
+psutil>=5.8.0
+
+# Type hints support
+typing-extensions>=4.0.0
+
+# Optional: Enhanced performance monitoring
+# py-cpuinfo>=8.0.0
+
+# Development dependencies (optional)
+# pytest>=6.0.0
+# pytest-cov>=2.0.0>=5.9.0
