@@ -30,15 +30,27 @@
 pip install psutil
 ```
 
-### 2. Run the Example with DSLL
+### 2. Protect Any Application (CLI)
+```bash
+# Protect notepad with DSLL technology
+python -m blacs.cli protect "C:\Windows\System32\notepad.exe"
+
+# Protect calculator with maximum security
+python -m blacs.cli protect "C:\Windows\System32\calc.exe" --level maximum
+
+# Or use the batch script (Windows)
+protect.bat "C:\Windows\System32\notepad.exe" high
+```
+
+### 3. Run the Example with DSLL
 ```bash
 python example.py
 ```
 
-### 3. Test Advanced DSLL Detection
+### 4. Test Advanced DSLL Detection
 ```bash
-# Run the example with DSLL technology
-python example.py
+# Run any protected application with DSLL technology
+python -m blacs.cli protect "C:\Windows\System32\notepad.exe"
 
 # While it's running, try opening:
 # - Cheat Engine (detected by DSLL syscall monitoring)
@@ -106,7 +118,24 @@ DSLL_CONFIG = {
 - **High**: Strict detection, Full DSLL monitoring
 - **Maximum**: Extreme sensitivity, Advanced DSLL analysis
 
-## 💻 Integration Examples with DSLL
+## 💻 Usage Examples
+
+### Command Line Interface (CLI)
+```bash
+# Basic protection
+python -m blacs.cli protect notepad.exe
+
+# Advanced protection with DSLL
+python -m blacs.cli protect "C:\Windows\System32\calc.exe" --level high
+
+# Maximum security for games
+python -m blacs.cli protect "C:\Program Files\MyGame\game.exe" --level maximum
+
+# Using batch script (Windows)
+protect.bat "C:\Windows\System32\notepad.exe" high
+```
+
+### Integration Examples with DSLL
 
 ### Simple Protection with DSLL
 ```python
@@ -175,9 +204,13 @@ def secure_game_session():
 📁 BLACS/ (Advanced with DSLL)
 ├── 📄 config.py                    # Configuration with DSLL settings
 ├── 📄 example.py                   # Demo with DSLL technology
+├── 📄 protect.bat                  # Windows batch script for easy protection
 ├── 📄 README.md                    # Documentation
 ├── 📄 requirements.txt             # Dependencies
 └── 📁 blacs/                       # Core system
+    ├── 📄 __init__.py              # Package initialization
+    ├── 📄 __main__.py              # CLI entry point
+    ├── 📄 cli.py                   # Command line interface
     ├── 📄 blacs_system.py          # Main orchestrator with DSLL
     ├── 📁 core/                    # Core components
     ├── 📁 monitors/                # Detection monitors

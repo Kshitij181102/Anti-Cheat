@@ -40,6 +40,7 @@ from .core.interfaces import (
 
 from .platform.detection import PlatformDetector
 from .blacs_system import BLACSSystem
+from .sdk.integration import BLACSIntegration
 
 __all__ = [
     'InputEvent', 'Violation', 'MonitoringData', 'LockstepValidation',
@@ -49,5 +50,5 @@ __all__ = [
     'BaseMonitor', 'InputMonitorInterface', 'ExecutionMonitorInterface',
     'MemoryMonitorInterface', 'SyscallMonitorInterface', 'ProcessMonitorInterface',
     'RuleEngineInterface', 'LoggingInterface',
-    'PlatformDetector', 'BLACSSystem'
+    'PlatformDetector', 'BLACSSystem', 'BLACSIntegration'
 ]
