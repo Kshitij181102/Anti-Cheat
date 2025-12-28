@@ -3,7 +3,7 @@
 BLACS Guardian - Tamper-Proof Protection Service
 
 Ultra-secure tamper-resistant monitoring system that requires admin privileges
-and cannot be stopped by regular users. Monitors applications without launching them.
+and cannot be stopped by regular users. Uses centralized JSON configuration.
 """
 
 import os
@@ -13,16 +13,16 @@ import ctypes
 import psutil
 import threading
 import subprocess
-import json
-from pathlib import Path
 from typing import Dict, List, Optional, Any
 from blacs.sdk.integration import BLACSIntegration
+from config_manager import get_config
 
 class BLACSGuardian:
-    """Tamper-proof BLACS protection service."""
+    """Tamper-proof BLACS protection service with JSON configuration."""
     
     def __init__(self):
         """Initialize the BLACS Guardian."""
+        self.config = get_config()
         self.is_admin = self._check_admin_privileges()
         self.protected_apps: Dict[str, Dict[str, Any]] = {}
         self.monitoring_active = False
@@ -30,11 +30,12 @@ class BLACSGuardian:
         self.blacs_instances: Dict[str, BLACSIntegration] = {}
         self.stop_event = threading.Event()
         
-        # Enhanced cheat detection database
-        self._load_enhanced_cheat_database()
+        # Load threat signatures from config
+        self.all_cheat_signatures = set(self.config.get_threat_signatures())
         
         # Self-protection mechanisms
-        self._enable_self_protection()
+        if self.config.get("system.self_protection", True):
+            self._enable_self_protection()
     
     def _check_admin_privileges(self) -> bool:
         """Check if running with administrator privileges."""
@@ -45,6 +46,9 @@ class BLACSGuardian:
     
     def _require_admin(self) -> bool:
         """Require administrator privileges to continue."""
+        if not self.config.get("system.admin_required", True):
+            return True  # Admin not required in config
+            
         if not self.is_admin:
             print("🚫 BLACS Guardian requires Administrator privileges!")
             print("   Right-click and select 'Run as administrator'")
@@ -53,12 +57,10 @@ class BLACSGuardian:
             # Attempt to restart with admin privileges
             try:
                 if sys.argv[0].endswith('.py'):
-                    # Running as Python script
                     ctypes.windll.shell32.ShellExecuteW(
                         None, "runas", sys.executable, " ".join(sys.argv), None, 1
                     )
                 else:
-                    # Running as executable
                     ctypes.windll.shell32.ShellExecuteW(
                         None, "runas", sys.argv[0], " ".join(sys.argv[1:]), None, 1
                     )
@@ -96,167 +98,6 @@ class BLACSGuardian:
         except Exception as e:
             print(f"⚠️ Basic self-protection failed: {e}")
     
-    def _load_enhanced_cheat_database(self) -> None:
-        """Load comprehensive cheat detection database."""
-        self.cheat_database = {
-            # ===== MEMORY EDITORS & CHEAT ENGINES =====
-            "memory_editors": [
-                "cheatengine", "cheat engine", "cheat-engine", "ce", "ce64", "ce32",
-                "artmoney", "artmoneypro", "art money", "gameguardian", "gg", "guardian",
-                "memoryeditor", "memory editor", "memoryhacker", "memory hacker",
-                "memhack", "mem hack", "tsearch", "t-search", "scanmem", "scan mem",
-                "memoryviewer", "memory viewer", "memview", "hexeditor", "hex editor",
-                "memorypatching", "memory patching", "mempatch", "mem patch",
-                "gameconqueror", "game conqueror", "memwatch", "mem watch",
-                "memoryscanner", "memory scanner", "memscan", "mem scan",
-                "ramhack", "ram hack", "ramcheat", "ram cheat", "memtool", "mem tool"
-            ],
-            
-            # ===== DEBUGGERS & ANALYSIS TOOLS =====
-            "debuggers": [
-                "ollydbg", "olly", "x64dbg", "x32dbg", "x96dbg", "xdbg",
-                "ida", "idapro", "ida pro", "idafree", "ida free", "hexrays",
-                "windbg", "win dbg", "kd", "cdb", "ntsd", "gdb", "lldb",
-                "processhacker", "process hacker", "processhacker2", "ph", "ph2",
-                "systemexplorer", "system explorer", "procexp", "process explorer",
-                "apimonitor", "api monitor", "detours", "easyhook", "minhook",
-                "rohitab", "immunity", "immunitydebugger", "immunity debugger",
-                "radare2", "r2", "ghidra", "binaryninja", "binary ninja",
-                "hopper", "disassembler", "decompiler", "reverser", "reverse",
-                "softice", "soft ice", "syser", "syser debugger", "winapi"
-            ],
-            
-            # ===== INJECTION & HOOKING TOOLS =====
-            "injection_tools": [
-                "injector", "inject", "dllinjector", "dll injector", "processinjector",
-                "process injector", "codecave", "code cave", "hooklib", "hook lib",
-                "apihook", "api hook", "dethook", "winapi", "ntapi", "kernel32",
-                "setwindowshook", "getprocaddress", "loadlibrary", "freelibrary",
-                "virtualallocex", "writeprocessmemory", "readprocessmemory",
-                "createremotethread", "ntcreatethreadex", "rtlcreateuserthread",
-                "manualmap", "manual map", "reflectivedll", "reflective dll",
-                "dllhijack", "dll hijack", "proxydll", "proxy dll", "sidebyside"
-            ],
-            
-            # ===== SPEED HACKS & TIME MANIPULATION =====
-            "speed_hacks": [
-                "speedhack", "speed hack", "gamespeed", "game speed", "timescale",
-                "time scale", "clockblocker", "clock blocker", "timestop", "time stop",
-                "speedgear", "speed gear", "hourglass", "hour glass", "timeshift",
-                "time shift", "acceleration", "accelerator", "fps", "framerate",
-                "tickrate", "tick rate", "timer", "timing", "temporal", "chrono",
-                "timehack", "time hack", "clockhack", "clock hack", "speedboost"
-            ],
-            
-            # ===== TRAINERS & GAME MODIFIERS =====
-            "trainers": [
-                "trainer", "gametrainer", "game trainer", "fling", "flingtrain",
-                "mrantifun", "mr antifun", "cheathappens", "cheat happens", "ch",
-                "wemod", "we mod", "plitch", "megadev", "mega dev", "fearless",
-                "fearlessrevolution", "fearless revolution", "codex", "skidrow",
-                "reloaded", "prophet", "steampunks", "goldberg", "smartsteamemu",
-                "greenlight", "ali213", "3dm", "cpy", "plaza", "hoodlum",
-                "dodi", "fitgirl", "empress", "razor1911", "fairlight", "deviance"
-            ],
-            
-            # ===== AUTOMATION & BOTS =====
-            "automation_bots": [
-                "autoclicker", "auto clicker", "autoclick", "auto click", "clickbot",
-                "click bot", "mousebot", "mouse bot", "keybot", "key bot", "inputbot",
-                "input bot", "autohotkey", "ahk", "macro", "macrorecorder", "macro recorder",
-                "jitbit", "ghost mouse", "ghostmouse", "perfect automation", "automation",
-                "bot", "botter", "farming", "grinder", "aimbot", "aim bot", "wallhack",
-                "wall hack", "esp", "triggerbot", "trigger bot", "bhop", "bunny hop",
-                "autofire", "auto fire", "rapidfire", "rapid fire", "autoaim", "auto aim"
-            ],
-            
-            # ===== GAME-SPECIFIC CHEATS =====
-            "game_cheats": [
-                "aimassist", "aim assist", "recoil", "norecoil", "no recoil", "spread",
-                "nospread", "no spread", "radar", "minimap", "xray", "x-ray", "vision",
-                "nightvision", "night vision", "thermal", "highlight", "glow", "outline",
-                "skeleton", "bones", "hitbox", "hit box", "headshot", "autofire", "auto fire",
-                "rapidfire", "rapid fire", "fullbright", "full bright", "gamma", "brightness",
-                "godmode", "god mode", "noclip", "no clip", "fly", "flying", "teleport",
-                "speedhack", "unlimited", "infinite", "invincible", "immortal"
-            ],
-            
-            # ===== NETWORK & PACKET MANIPULATION =====
-            "network_tools": [
-                "wireshark", "wire shark", "fiddler", "burpsuite", "burp suite",
-                "networkminer", "network miner", "tcpdump", "tcp dump", "packetsender",
-                "packet sender", "networkhack", "network hack", "lagswitch", "lag switch",
-                "netlimiter", "net limiter", "packeteditor", "packet editor", "mitm",
-                "man in the middle", "proxy", "sniffer", "interceptor", "tamper",
-                "charles", "owasp zap", "paros", "webscarab", "burp", "fiddler"
-            ],
-            
-            # ===== CRACKING & REVERSE ENGINEERING =====
-            "cracking_tools": [
-                "crack", "cracker", "keygen", "key gen", "patch", "patcher", "loader",
-                "activator", "bypass", "unlocker", "remover", "killer", "disabler",
-                "unpacker", "protector", "obfuscator", "deobfuscator", "strings",
-                "hexedit", "hex edit", "binedit", "bin edit", "resource", "reshacker",
-                "res hacker", "pe", "portable executable", "elf", "mach-o", "binary",
-                "upx", "aspack", "themida", "vmprotect", "enigma", "armadillo"
-            ],
-            
-            # ===== MODDING & GAME MODIFICATION =====
-            "modding_tools": [
-                "mod", "mods", "modding", "modder", "modification", "modifier",
-                "reshade", "re shade", "sweetfx", "enb", "enbseries", "enb series",
-                "asi", "asiloader", "asi loader", "scripthook", "script hook", "cleo",
-                "samp", "multitheft", "multi theft", "gtasa", "gta sa", "vcmp",
-                "mta", "multitheftauto", "openiv", "open iv", "modloader", "mod loader",
-                "nexusmods", "nexus mods", "vortex", "mo2", "mod organizer"
-            ],
-            
-            # ===== MOBILE/APK HACKING TOOLS =====
-            "mobile_hacking": [
-                "gameguardian", "gg", "guardian", "lucky patcher", "luckypatcher",
-                "freedom", "creehack", "cree hack", "game killer", "gamekiller",
-                "sb game hacker", "sbgamehacker", "cheat droid", "cheatdroid",
-                "game cih", "gamecih", "xmodgames", "xmod games", "ihackedit",
-                "ifile", "filza", "apktool", "apk tool", "dex2jar", "jadx",
-                "frida", "xposed", "magisk", "root", "jailbreak", "cydia",
-                "substrate", "hooking", "runtime", "manipulation", "bytecode"
-            ],
-            
-            # ===== ANTI-DETECTION & STEALTH =====
-            "stealth_tools": [
-                "stealth", "hidden", "invisible", "undetected", "undetectable", "bypass",
-                "evade", "evasion", "mask", "masker", "spoof", "spoofer", "fake", "faker",
-                "emulator", "virtual", "sandbox", "vm", "vmware", "virtualbox", "qemu",
-                "hyperv", "hyper-v", "container", "docker", "wine", "proton", "compatibility",
-                "hideprocess", "hide process", "rootkit", "steganography", "obfuscation"
-            ],
-            
-            # ===== CRYPTOCURRENCY & MINING =====
-            "crypto_mining": [
-                "miner", "mining", "bitcoin", "ethereum", "crypto", "cryptocurrency",
-                "hashrate", "gpu", "cpu", "asic", "pool", "wallet", "blockchain",
-                "monero", "zcash", "litecoin", "dogecoin", "nicehash", "claymore",
-                "phoenixminer", "t-rex", "gminer", "lolminer", "nbminer", "teamredminer"
-            ],
-            
-            # ===== GENERAL HACKING TERMS =====
-            "general_hacking": [
-                "hack", "hacker", "hacking", "cheat", "cheater", "cheating", "exploit",
-                "exploiter", "exploiting", "glitch", "glitcher", "glitching", "abuse",
-                "abuser", "abusing", "unfair", "advantage", "enhancement", "enhancer",
-                "booster", "boost", "amplifier", "multiplier", "unlimited", "infinite",
-                "external", "overlay", "injection", "modification", "manipulation",
-                "automation", "simulation", "emulation", "virtualization", "containerization"
-            ]
-        }
-        
-        # Flatten all categories into a single comprehensive list
-        self.all_cheat_signatures = set()
-        for category, signatures in self.cheat_database.items():
-            self.all_cheat_signatures.update(signatures)
-        
-        print(f"🔍 BLACS Guardian: Loaded {len(self.all_cheat_signatures)} cheat signatures")
-    
     def start_guardian(self) -> bool:
         """Start the tamper-proof guardian service."""
         if not self._require_admin():
@@ -266,7 +107,8 @@ class BLACSGuardian:
         print("=" * 55)
         print("🔒 Administrator privileges: VERIFIED")
         print("🛡️ Self-protection: ENABLED")
-        print("🔍 Enhanced cheat detection: LOADED")
+        print(f"🔍 Threat signatures loaded: {len(self.all_cheat_signatures)}")
+        print(f"🔧 Configuration: {self.config.config_file}")
         print()
         
         self.monitoring_active = True
@@ -279,9 +121,18 @@ class BLACSGuardian:
         """Add an application to protection without launching it."""
         app_name = os.path.basename(app_path)
         
+        # Validate protection level
+        level_config = self.config.get_protection_level_config(protection_level)
+        if not level_config:
+            print(f"❌ Invalid protection level: {protection_level}")
+            available_levels = list(self.config.get("protection_levels", {}).keys())
+            print(f"   Available levels: {', '.join(available_levels)}")
+            return False
+        
         print(f"🎯 Adding application to protection: {app_name}")
         print(f"📁 Path: {app_path}")
         print(f"🔒 Protection Level: {protection_level.upper()}")
+        print(f"📊 Level Settings: {level_config.get('description', 'Custom configuration')}")
         
         # Check if application exists
         if not os.path.exists(app_path):
@@ -292,6 +143,7 @@ class BLACSGuardian:
         self.protected_apps[app_name] = {
             "path": app_path,
             "protection_level": protection_level,
+            "level_config": level_config,
             "pid": None,
             "blacs_instance": None,
             "last_seen": None,
@@ -307,6 +159,9 @@ class BLACSGuardian:
         """Main guardian monitoring loop."""
         print("🔄 BLACS Guardian monitoring started...")
         
+        # Get scan interval from config
+        scan_interval = self.config.get("protection_levels.high.scan_interval", 2.0)
+        
         while self.monitoring_active and not self.stop_event.is_set():
             try:
                 # Check for protected applications
@@ -318,7 +173,7 @@ class BLACSGuardian:
                 # Self-protection check
                 self._verify_self_protection()
                 
-                time.sleep(2)  # Check every 2 seconds
+                time.sleep(scan_interval)
                 
             except Exception as e:
                 print(f"❌ Guardian error: {e}")
@@ -348,10 +203,11 @@ class BLACSGuardian:
                     blacs.set_violation_callback("critical", on_threat)
                     blacs.set_violation_callback("high", on_threat)
                     
-                    # Enable protection
+                    # Enable protection with configured level
                     if blacs.enable_protection(app_info["protection_level"]):
-                        # Add to DSLL protection
-                        blacs.blacs_system.add_protected_process(running_pid)
+                        # Add to DSLL protection if enabled
+                        if self.config.is_dsll_enabled() and blacs.blacs_system:
+                            blacs.blacs_system.add_protected_process(running_pid)
                         
                         # Update app info
                         app_info["pid"] = running_pid
@@ -360,7 +216,8 @@ class BLACSGuardian:
                         app_info["last_seen"] = time.time()
                         
                         print(f"✅ {app_name} protection ACTIVATED")
-                        print(f"🔍 DSLL monitoring: ACTIVE")
+                        if self.config.is_dsll_enabled():
+                            print(f"🔍 DSLL monitoring: ACTIVE")
                         print(f"🛡️ Guardian protection: ENABLED")
                 
                 elif running_pid and app_info["protection_active"]:
@@ -372,10 +229,12 @@ class BLACSGuardian:
                     print(f"\n⏹️ {app_name} closed, disabling protection...")
                     
                     if app_info["blacs_instance"]:
-                        # Export DSLL ledger
-                        ledger_file = f"guardian_log_{app_name}_{int(time.time())}.json"
-                        if app_info["blacs_instance"].export_dsll_ledger(ledger_file):
-                            print(f"📝 Guardian log exported: {ledger_file}")
+                        # Export DSLL ledger if enabled
+                        if self.config.is_dsll_enabled():
+                            print(f"📝 Exporting DSLL forensic ledger...")
+                            ledger_filename = f"guardian_log_{app_name}_{int(time.time())}.json"
+                            if app_info["blacs_instance"].export_dsll_ledger(ledger_filename):
+                                print(f"✅ DSLL ledger exported: {ledger_filename}")
                         
                         # Disable protection
                         app_info["blacs_instance"].disable_protection()
@@ -405,13 +264,21 @@ class BLACSGuardian:
     def _scan_for_cheat_tools(self) -> None:
         """Continuously scan for cheat tools and terminate them."""
         try:
+            # Get auto-terminate setting from config
+            auto_terminate = self.config.get("response_actions.violation_handling.critical_severity.terminate_threat", True)
+            
             for proc in psutil.process_iter(['pid', 'name', 'exe']):
                 try:
                     proc_info = proc.info
                     proc_name = (proc_info.get('name') or '').lower()
                     proc_exe = (proc_info.get('exe') or '').lower()
                     
-                    # Check against comprehensive cheat database
+                    # Check against whitelist first
+                    whitelist = self.config.get_whitelist_processes()
+                    if proc_name in [w.lower() for w in whitelist]:
+                        continue
+                    
+                    # Check against threat signatures
                     threat_detected = False
                     threat_category = ""
                     
@@ -419,7 +286,8 @@ class BLACSGuardian:
                         if signature in proc_name or (proc_exe and signature in proc_exe):
                             threat_detected = True
                             # Find which category this belongs to
-                            for category, signatures in self.cheat_database.items():
+                            signature_db = self.config.get("threat_detection.signature_database", {})
+                            for category, signatures in signature_db.items():
                                 if signature in signatures:
                                     threat_category = category
                                     break
@@ -429,26 +297,30 @@ class BLACSGuardian:
                         print(f"\n🚨 GUARDIAN THREAT DETECTED!")
                         print(f"📝 Threat: {proc_name} (Category: {threat_category})")
                         print(f"🎯 PID: {proc.pid}")
-                        print(f"⚡ Action: IMMEDIATE TERMINATION")
                         
-                        # Immediate termination
-                        try:
-                            proc.terminate()
-                            time.sleep(0.2)
+                        if auto_terminate:
+                            print(f"⚡ Action: IMMEDIATE TERMINATION")
                             
-                            if proc.is_running():
-                                proc.kill()
+                            # Immediate termination
+                            try:
+                                proc.terminate()
                                 time.sleep(0.2)
+                                
+                                if proc.is_running():
+                                    proc.kill()
+                                    time.sleep(0.2)
+                                
+                                if proc.is_running():
+                                    # System-level termination
+                                    subprocess.run(['taskkill', '/F', '/PID', str(proc.pid)], 
+                                                 capture_output=True, timeout=5)
+                                
+                                print(f"✅ Threat neutralized: {proc_name}")
                             
-                            if proc.is_running():
-                                # System-level termination
-                                subprocess.run(['taskkill', '/F', '/PID', str(proc.pid)], 
-                                             capture_output=True, timeout=5)
-                            
-                            print(f"✅ Threat neutralized: {proc_name}")
-                        
-                        except Exception as term_error:
-                            print(f"⚠️ Termination failed: {term_error}")
+                            except Exception as term_error:
+                                print(f"⚠️ Termination failed: {term_error}")
+                        else:
+                            print(f"⚡ Action: LOGGED (termination disabled)")
                         
                         print("-" * 50)
                 
@@ -460,6 +332,9 @@ class BLACSGuardian:
     
     def _verify_self_protection(self) -> None:
         """Verify guardian self-protection is still active."""
+        if not self.config.get("system.self_protection", True):
+            return
+            
         try:
             current_process = psutil.Process()
             
@@ -496,6 +371,7 @@ class BLACSGuardian:
             "protected_applications": len(self.protected_apps),
             "active_protections": sum(1 for app in self.protected_apps.values() if app["protection_active"]),
             "cheat_signatures": len(self.all_cheat_signatures),
+            "dsll_enabled": self.config.is_dsll_enabled(),
             "applications": {
                 name: {
                     "path": info["path"],
@@ -521,6 +397,7 @@ Examples:
   python blacs_guardian.py notepad.exe --level medium
 
 Note: Requires Administrator privileges for tamper-proof protection.
+Configuration: Edit blacs_config.json to customize all settings.
         """
     )
     
@@ -545,6 +422,7 @@ Note: Requires Administrator privileges for tamper-proof protection.
         print(f"\n💡 BLACS Guardian is now monitoring for {os.path.basename(args.app_path)}")
         print(f"🔒 Tamper-proof protection: ACTIVE")
         print(f"⚠️  Cannot be stopped without Administrator privileges")
+        print(f"🔧 Configuration: Edit blacs_config.json to customize settings")
         print(f"⏳ Press Ctrl+C to stop (requires admin)")
         
         # Keep guardian running

@@ -15,9 +15,9 @@ from ..core.data_models import (
     ProcessInfo, WindowsProcessInfo, ProcessAnalysis, Violation, ViolationSeverity
 )
 
-# Import simple configuration
+# Import JSON configuration
 try:
-    import config
+    from config_manager import get_config
     CONFIG_AVAILABLE = True
 except ImportError:
     CONFIG_AVAILABLE = False
@@ -30,23 +30,33 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
         """Initialize the Windows process monitor."""
         super().__init__("WindowsProcessMonitor")
         
-        # Load simple configuration
+        # Load JSON configuration
         if CONFIG_AVAILABLE:
-            self.scan_interval = config.SCAN_INTERVAL
-            self.auto_terminate_threats = config.AUTO_TERMINATE_THREATS
-            self.extreme_detection_mode = config.EXTREME_DETECTION_MODE
-            self.critical_risk_threshold = config.CRITICAL_RISK_THRESHOLD
+            self.config = get_config()
+            monitor_config = self.config.get_monitor_config("process_monitor")
+            
+            self.scan_interval = monitor_config.get("settings", {}).get("scan_interval", 2.0)
+            self.auto_terminate_threats = monitor_config.get("settings", {}).get("auto_terminate_threats", True)
+            self.extreme_detection_mode = True  # Always enabled for comprehensive protection
+            self.critical_risk_threshold = 0.9
+            
+            # Load threat signatures from JSON config
+            self.suspicious_names = set(self.config.get_threat_signatures())
+            self.whitelist_processes = set(self.config.get_whitelist_processes())
         else:
+            # Fallback configuration
             self.scan_interval = scan_interval
             self.auto_terminate_threats = True
             self.extreme_detection_mode = True
             self.critical_risk_threshold = 0.9
+            self._load_fallback_signatures()
         
         self.monitoring_thread: Optional[threading.Thread] = None
         self.stop_event = threading.Event()
         
-        # Load cheat signatures
-        self._load_signatures()
+        # Process baseline
+        self.baseline_processes: Dict[int, WindowsProcessInfo] = {}
+        self.baseline_established = False
         
         # Process baseline
         self.baseline_processes: Dict[int, WindowsProcessInfo] = {}
@@ -326,8 +336,8 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
         self.baseline_processes: Dict[int, WindowsProcessInfo] = {}
         self.baseline_established = False
     
-    def _load_signatures(self) -> None:
-        """Load cheat signatures."""
+    def _load_fallback_signatures(self) -> None:
+        """Load fallback cheat signatures when JSON config is not available."""
         # Simplified signature list - most common cheat tools
         self.suspicious_names = {
             # Memory editors
@@ -365,9 +375,12 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
             "hack.exe", "cheat.exe", "bot.exe", "crack.exe", "patch.exe"
         }
         
-        # Process baseline
-        self.baseline_processes: Dict[int, WindowsProcessInfo] = {}
-        self.baseline_established = False
+        # Whitelist processes
+        self.whitelist_processes = {
+            "system", "smss.exe", "csrss.exe", "wininit.exe", "winlogon.exe",
+            "services.exe", "lsass.exe", "svchost.exe", "explorer.exe",
+            "dwm.exe", "conhost.exe", "audiodg.exe", "spoolsv.exe"
+        }
     
     def start_monitoring(self) -> None:
         """Start the process monitoring."""

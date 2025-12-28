@@ -1,0 +1,348 @@
+{
+  "system": {
+    "name": "BLACS Guardian",
+    "version": "1.0.0",
+    "description": "Tamper-Proof Anti-Cheat System with DSLL Technology",
+    "admin_required": true,
+    "self_protection": true
+  },
+  "protection_levels": {
+    "low": {
+      "description": "Basic protection for development and testing",
+      "max_human_frequency": 50.0,
+      "automation_threshold": 0.8,
+      "auto_terminate": false,
+      "extreme_detection": false,
+      "dsll_enabled": false,
+      "scan_interval": 5.0,
+      "critical_risk_threshold": 0.95
+    },
+    "medium": {
+      "description": "Balanced protection for general use",
+      "max_human_frequency": 25.0,
+      "automation_threshold": 0.7,
+      "auto_terminate": true,
+      "extreme_detection": true,
+      "dsll_enabled": true,
+      "scan_interval": 3.0,
+      "critical_risk_threshold": 0.9
+    },
+    "high": {
+      "description": "Strict protection for important applications",
+      "max_human_frequency": 15.0,
+      "automation_threshold": 0.6,
+      "auto_terminate": true,
+      "extreme_detection": true,
+      "dsll_enabled": true,
+      "scan_interval": 2.0,
+      "critical_risk_threshold": 0.85
+    },
+    "maximum": {
+      "description": "Extreme protection for critical applications",
+      "max_human_frequency": 10.0,
+      "automation_threshold": 0.5,
+      "auto_terminate": true,
+      "extreme_detection": true,
+      "dsll_enabled": true,
+      "scan_interval": 1.0,
+      "critical_risk_threshold": 0.8
+    }
+  },
+  "monitors": {
+    "input_monitor": {
+      "enabled": true,
+      "description": "Monitors input patterns for automation detection",
+      "settings": {
+        "click_frequency_threshold": 20.0,
+        "key_frequency_threshold": 30.0,
+        "pattern_analysis_window": 100,
+        "suspicious_pattern_threshold": 0.7
+      }
+    },
+    "memory_monitor": {
+      "enabled": true,
+      "description": "Monitors memory access and modification attempts",
+      "settings": {
+        "scan_interval": 1.0,
+        "protected_regions": ["heap", "stack", "code"],
+        "detection_methods": ["signature", "heuristic", "behavioral"],
+        "memory_protection_level": "high"
+      }
+    },
+    "process_monitor": {
+      "enabled": true,
+      "description": "Monitors processes for cheat tools and suspicious behavior",
+      "settings": {
+        "scan_interval": 2.0,
+        "signature_database_size": 500,
+        "behavioral_analysis": true,
+        "auto_terminate_threats": true,
+        "whitelist_system_processes": true
+      }
+    },
+    "dsll_monitor": {
+      "enabled": true,
+      "description": "Advanced DSLL syscall monitoring and behavioral analysis",
+      "settings": {
+        "monitor_interval": 0.1,
+        "ledger_max_size": 10000,
+        "pattern_analysis_window": 50,
+        "cryptographic_verification": true,
+        "auto_export_on_violation": false,
+        "export_format": "json"
+      }
+    }
+  },
+  "dsll_configuration": {
+    "enabled": true,
+    "description": "Deterministic Syscall Lockstep Ledger Technology",
+    "critical_syscalls": [
+      "NtReadVirtualMemory",
+      "NtWriteVirtualMemory",
+      "NtOpenProcess",
+      "NtCreateThread",
+      "NtSuspendProcess",
+      "NtResumeProcess",
+      "NtTerminateProcess",
+      "NtAllocateVirtualMemory",
+      "NtProtectVirtualMemory",
+      "NtCreateFile",
+      "NtSetValueKey",
+      "NtLoadDriver",
+      "NtCreateThreadEx",
+      "NtQueueApcThread",
+      "NtSetContextThread"
+    ],
+    "pattern_detection": {
+      "rapid_memory_threshold": 10,
+      "process_manipulation_threshold": 5,
+      "injection_attempt_threshold": 3,
+      "analysis_window_size": 50,
+      "pattern_confidence_threshold": 0.8
+    },
+    "forensic_settings": {
+      "enable_stack_traces": true,
+      "enable_parameter_logging": true,
+      "enable_return_value_logging": true,
+      "compression_enabled": false,
+      "encryption_enabled": false,
+      "max_log_file_size_mb": 100
+    }
+  },
+  "threat_detection": {
+    "signature_database": {
+      "memory_editors": [
+        "cheatengine", "cheat engine", "cheat-engine", "ce", "ce64", "ce32",
+        "artmoney", "artmoneypro", "art money", "gameguardian", "gg", "guardian",
+        "memoryeditor", "memory editor", "memoryhacker", "memory hacker",
+        "memhack", "mem hack", "tsearch", "t-search", "scanmem", "scan mem",
+        "memoryviewer", "memory viewer", "memview", "hexeditor", "hex editor",
+        "memorypatching", "memory patching", "mempatch", "mem patch",
+        "gameconqueror", "game conqueror", "memwatch", "mem watch",
+        "memoryscanner", "memory scanner", "memscan", "mem scan", "ramhack", "ram hack",
+        "ramcheat", "ram cheat", "memtool", "mem tool", "memorymanipulator", "memory manipulator"
+      ],
+      "debuggers": [
+        "ollydbg", "olly", "x64dbg", "x32dbg", "x96dbg", "xdbg",
+        "ida", "idapro", "ida pro", "idafree", "ida free", "hexrays",
+        "windbg", "win dbg", "kd", "cdb", "ntsd", "gdb", "lldb",
+        "processhacker", "process hacker", "processhacker2", "ph", "ph2",
+        "systemexplorer", "system explorer", "procexp", "process explorer",
+        "apimonitor", "api monitor", "detours", "easyhook", "minhook",
+        "rohitab", "immunity", "immunitydebugger", "immunity debugger",
+        "radare2", "r2", "ghidra", "binaryninja", "binary ninja",
+        "hopper", "disassembler", "decompiler", "reverser", "reverse",
+        "softice", "soft ice", "syser", "syser debugger", "winapi", "ntapi"
+      ],
+      "injection_tools": [
+        "injector", "inject", "dllinjector", "dll injector", "processinjector",
+        "process injector", "codecave", "code cave", "hooklib", "hook lib",
+        "apihook", "api hook", "dethook", "winapi", "ntapi", "kernel32",
+        "setwindowshook", "getprocaddress", "loadlibrary", "freelibrary",
+        "virtualallocex", "writeprocessmemory", "readprocessmemory",
+        "createremotethread", "ntcreatethreadex", "rtlcreateuserthread",
+        "manualmap", "manual map", "reflectivedll", "reflective dll",
+        "dllhijack", "dll hijack", "proxydll", "proxy dll", "sidebyside"
+      ],
+      "speed_hacks": [
+        "speedhack", "speed hack", "gamespeed", "game speed", "timescale",
+        "time scale", "clockblocker", "clock blocker", "timestop", "time stop",
+        "speedgear", "speed gear", "hourglass", "hour glass", "timeshift",
+        "time shift", "acceleration", "accelerator", "fps", "framerate",
+        "tickrate", "tick rate", "timer", "timing", "temporal", "chrono",
+        "timehack", "time hack", "clockhack", "clock hack", "speedboost"
+      ],
+      "trainers": [
+        "trainer", "gametrainer", "game trainer", "fling", "flingtrain",
+        "mrantifun", "mr antifun", "cheathappens", "cheat happens", "ch",
+        "wemod", "we mod", "plitch", "megadev", "mega dev", "fearless",
+        "fearlessrevolution", "fearless revolution", "codex", "skidrow",
+        "reloaded", "prophet", "steampunks", "goldberg", "smartsteamemu",
+        "greenlight", "ali213", "3dm", "cpy", "plaza", "hoodlum",
+        "dodi", "fitgirl", "empress", "razor1911", "fairlight", "deviance"
+      ],
+      "automation_bots": [
+        "autoclicker", "auto clicker", "autoclick", "auto click", "clickbot",
+        "click bot", "mousebot", "mouse bot", "keybot", "key bot", "inputbot",
+        "input bot", "autohotkey", "ahk", "macro", "macrorecorder", "macro recorder",
+        "jitbit", "ghost mouse", "ghostmouse", "perfect automation", "automation",
+        "bot", "botter", "farming", "grinder", "aimbot", "aim bot", "wallhack",
+        "wall hack", "esp", "triggerbot", "trigger bot", "bhop", "bunny hop",
+        "autofire", "auto fire", "rapidfire", "rapid fire", "autoaim", "auto aim"
+      ],
+      "mobile_hacking": [
+        "gameguardian", "gg", "guardian", "lucky patcher", "luckypatcher",
+        "freedom", "creehack", "cree hack", "game killer", "gamekiller",
+        "sb game hacker", "sbgamehacker", "cheat droid", "cheatdroid",
+        "game cih", "gamecih", "xmodgames", "xmod games", "ihackedit",
+        "ifile", "filza", "apktool", "apk tool", "dex2jar", "jadx",
+        "frida", "xposed", "magisk", "root", "jailbreak", "cydia",
+        "substrate", "hooking", "runtime", "manipulation", "bytecode",
+        "bluestacks", "nox", "memu", "ldplayer", "gameloop", "phoenix os"
+      ],
+      "network_tools": [
+        "wireshark", "wire shark", "fiddler", "burpsuite", "burp suite",
+        "networkminer", "network miner", "tcpdump", "tcp dump", "packetsender",
+        "packet sender", "networkhack", "network hack", "lagswitch", "lag switch",
+        "netlimiter", "net limiter", "packeteditor", "packet editor", "mitm",
+        "man in the middle", "proxy", "sniffer", "interceptor", "tamper",
+        "charles", "owasp zap", "paros", "webscarab", "burp", "fiddler"
+      ],
+      "cracking_tools": [
+        "crack", "cracker", "keygen", "key gen", "patch", "patcher", "loader",
+        "activator", "bypass", "unlocker", "remover", "killer", "disabler",
+        "unpacker", "protector", "obfuscator", "deobfuscator", "strings",
+        "hexedit", "hex edit", "binedit", "bin edit", "resource", "reshacker",
+        "res hacker", "pe", "portable executable", "elf", "mach-o", "binary",
+        "upx", "aspack", "themida", "vmprotect", "enigma", "armadillo"
+      ],
+      "crypto_mining": [
+        "miner", "mining", "bitcoin", "ethereum", "crypto", "cryptocurrency",
+        "hashrate", "gpu", "cpu", "asic", "pool", "wallet", "blockchain",
+        "monero", "zcash", "litecoin", "dogecoin", "nicehash", "claymore",
+        "phoenixminer", "t-rex", "gminer", "lolminer", "nbminer", "teamredminer"
+      ],
+      "general_hacking": [
+        "hack", "hacker", "hacking", "cheat", "cheater", "cheating", "exploit",
+        "exploiter", "exploiting", "glitch", "glitcher", "glitching", "abuse",
+        "abuser", "abusing", "unfair", "advantage", "enhancement", "enhancer",
+        "booster", "boost", "amplifier", "multiplier", "unlimited", "infinite",
+        "external", "overlay", "injection", "modification", "manipulation",
+        "automation", "simulation", "emulation", "virtualization", "containerization"
+      ]
+    },
+    "behavioral_patterns": {
+      "rapid_clicking": {
+        "enabled": true,
+        "threshold": 20.0,
+        "window_size": 5.0,
+        "confidence_level": 0.8
+      },
+      "perfect_timing": {
+        "enabled": true,
+        "variance_threshold": 0.05,
+        "sample_size": 50,
+        "confidence_level": 0.9
+      },
+      "impossible_accuracy": {
+        "enabled": true,
+        "accuracy_threshold": 0.98,
+        "sample_size": 100,
+        "confidence_level": 0.85
+      },
+      "memory_scanning": {
+        "enabled": true,
+        "scan_frequency_threshold": 10,
+        "pattern_recognition": true,
+        "confidence_level": 0.9
+      }
+    }
+  },
+  "response_actions": {
+    "violation_handling": {
+      "low_severity": {
+        "log_event": true,
+        "notify_user": false,
+        "terminate_threat": false,
+        "export_evidence": false
+      },
+      "medium_severity": {
+        "log_event": true,
+        "notify_user": true,
+        "terminate_threat": false,
+        "export_evidence": true
+      },
+      "high_severity": {
+        "log_event": true,
+        "notify_user": true,
+        "terminate_threat": true,
+        "export_evidence": true
+      },
+      "critical_severity": {
+        "log_event": true,
+        "notify_user": true,
+        "terminate_threat": true,
+        "export_evidence": true,
+        "immediate_response": true
+      }
+    },
+    "termination_methods": [
+      "terminate",
+      "kill",
+      "taskkill"
+    ],
+    "notification_settings": {
+      "console_output": true,
+      "log_file": true,
+      "system_tray": false,
+      "email_alerts": false
+    }
+  },
+  "logging": {
+    "enabled": true,
+    "log_level": "INFO",
+    "log_file": "blacs_guardian.log",
+    "max_log_size_mb": 50,
+    "log_rotation": true,
+    "log_retention_days": 30,
+    "detailed_logging": {
+      "syscalls": true,
+      "process_events": true,
+      "memory_events": true,
+      "input_events": false,
+      "performance_metrics": true
+    }
+  },
+  "performance": {
+    "max_cpu_usage_percent": 5.0,
+    "max_memory_usage_mb": 100,
+    "optimization_level": "balanced",
+    "background_priority": "high",
+    "thread_pool_size": 4,
+    "cache_size_mb": 20
+  },
+  "advanced_settings": {
+    "custom_signatures": {
+      "enabled": true,
+      "user_defined_patterns": [],
+      "whitelist_processes": [
+        "system", "smss.exe", "csrss.exe", "wininit.exe", "winlogon.exe",
+        "services.exe", "lsass.exe", "svchost.exe", "explorer.exe",
+        "dwm.exe", "conhost.exe", "audiodg.exe", "spoolsv.exe"
+      ],
+      "blacklist_processes": []
+    },
+    "experimental_features": {
+      "machine_learning": false,
+      "cloud_intelligence": false,
+      "predictive_analysis": false,
+      "quantum_resistance": false
+    },
+    "developer_options": {
+      "debug_mode": false,
+      "verbose_logging": false,
+      "performance_profiling": false,
+      "api_access": false
+    }
+  }
+}

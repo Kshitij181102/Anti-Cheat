@@ -1,53 +1,52 @@
-# 🛡️ BLACS Application Testing Guide
+# 🛡️ BLACS Guardian Testing Guide
 
-Complete guide for protecting and testing any Windows application with BLACS and DSLL technology.
+Complete guide for testing applications with BLACS Guardian tamper-proof protection system.
 
-## 🚀 Quick Start - Protect Any Application
+## 🚀 Quick Start - Tamper-Proof Testing
 
-### Method 1: Using the Universal Protector (Recommended)
+### Primary Method: BLACS Guardian (Requires Admin)
 
 ```bash
-# Protect Calculator
-python protect_app.py "C:\Windows\System32\calc.exe"
+# Protect Calculator (requires Administrator privileges)
+python blacs_guardian.py "C:\Windows\System32\calc.exe" --level high
 
 # Protect Notepad with maximum security
-python protect_app.py "C:\Windows\System32\notepad.exe" --level maximum
+python blacs_guardian.py "C:\Windows\System32\notepad.exe" --level maximum
 
 # Protect any game or application
-python protect_app.py "C:\Program Files\MyGame\game.exe" --level high
+python blacs_guardian.py "C:\Program Files\MyGame\game.exe" --level maximum
 
 # Just use executable name (auto-finds common locations)
-python protect_app.py calc.exe
-python protect_app.py notepad.exe
+python blacs_guardian.py calc.exe --level high
 ```
 
-### Method 2: Using the CLI Module
-
-```bash
-# Basic protection
-python -m blacs.cli protect "C:\Windows\System32\calc.exe"
-
-# Advanced protection
-python -m blacs.cli protect "C:\Program Files\MyApp\app.exe" --level maximum
-```
-
-### Method 3: Using Batch Script (Windows)
+### Using Batch Script (Windows)
 
 ```batch
-# Simple protection
-protect.bat "C:\Windows\System32\calc.exe" high
+# Simple tamper-proof protection
+protect.bat calc.exe high
 
 # Game protection
 protect.bat "C:\Program Files\Steam\steamapps\common\MyGame\game.exe" maximum
 ```
 
+### Using CLI Module
+
+```bash
+# Basic protection via CLI
+python -m blacs.cli protect calc.exe --level high
+
+# Advanced protection
+python -m blacs.cli protect "C:\Program Files\MyApp\app.exe" --level maximum
+```
+
 ## 🎯 Testing Different Applications
 
-### 1. System Applications
+### 1. System Applications (Requires Admin)
 
 #### Windows Calculator
 ```bash
-python protect_app.py calc.exe --level high
+python blacs_guardian.py calc.exe --level high
 ```
 **What to test:**
 - Open Cheat Engine → Try to attach to Calculator
@@ -56,7 +55,7 @@ python protect_app.py calc.exe --level high
 
 #### Notepad
 ```bash
-python protect_app.py notepad.exe --level medium
+python blacs_guardian.py notepad.exe --level medium
 ```
 **What to test:**
 - Memory editors trying to modify text buffer
@@ -65,7 +64,7 @@ python protect_app.py notepad.exe --level medium
 
 #### Paint
 ```bash
-python protect_app.py "C:\Windows\System32\mspaint.exe"
+python blacs_guardian.py "C:\Windows\System32\mspaint.exe" --level high
 ```
 **What to test:**
 - Graphics memory manipulation
@@ -76,17 +75,17 @@ python protect_app.py "C:\Windows\System32\mspaint.exe"
 
 #### Steam Games
 ```bash
-python protect_app.py "C:\Program Files (x86)\Steam\steamapps\common\GameName\game.exe" --level maximum
+python blacs_guardian.py "C:\Program Files (x86)\Steam\steamapps\common\GameName\game.exe" --level maximum
 ```
 
 #### Epic Games
 ```bash
-python protect_app.py "C:\Program Files\Epic Games\GameName\game.exe" --level high
+python blacs_guardian.py "C:\Program Files\Epic Games\GameName\game.exe" --level high
 ```
 
 #### Standalone Games
 ```bash
-python protect_app.py "C:\Games\MyGame\game.exe" --level high
+python blacs_guardian.py "C:\Games\MyGame\game.exe" --level high
 ```
 
 **What to test with games:**
@@ -99,19 +98,19 @@ python protect_app.py "C:\Games\MyGame\game.exe" --level high
 
 #### Microsoft Office
 ```bash
-python protect_app.py "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE"
+python blacs_guardian.py "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE" --level medium
 ```
 
 #### Web Browsers
 ```bash
-python protect_app.py "C:\Program Files\Google\Chrome\Application\chrome.exe"
-python protect_app.py "C:\Program Files\Mozilla Firefox\firefox.exe"
+python blacs_guardian.py "C:\Program Files\Google\Chrome\Application\chrome.exe" --level medium
+python blacs_guardian.py "C:\Program Files\Mozilla Firefox\firefox.exe" --level medium
 ```
 
 #### Development Tools
 ```bash
-python protect_app.py "C:\Program Files\Microsoft VS Code\Code.exe"
-python protect_app.py "C:\Program Files\JetBrains\IntelliJ IDEA\bin\idea64.exe"
+python blacs_guardian.py "C:\Program Files\Microsoft VS Code\Code.exe" --level low
+python blacs_guardian.py "C:\Program Files\JetBrains\IntelliJ IDEA\bin\idea64.exe" --level low
 ```
 
 ## 🧪 Comprehensive Testing Procedures
@@ -180,11 +179,13 @@ After testing, BLACS automatically exports a forensic ledger:
 ✅ DSLL ledger exported: dsll_protection_log_AppName_timestamp.json
 ```
 
+**Note**: These log files are automatically generated during protection sessions and can be safely deleted after analysis. They are not required for the system to function.
+
 #### Analyze the Ledger
 ```python
 import json
 
-# Load the exported ledger
+# Load the exported ledger (example filename)
 with open('dsll_protection_log_AppName_timestamp.json', 'r') as f:
     ledger = json.load(f)
 
@@ -230,31 +231,60 @@ python protect_app.py "C:\Games\RacingGame\game.exe" --level high
 
 ## 🔧 Advanced Configuration for Testing
 
-### Custom Protection Levels
-Edit `config.py` before testing:
+### JSON Configuration for Testing
+Edit `blacs_config.json` to customize testing settings:
 
-```python
-# For intensive testing
-PROTECTION_LEVEL = "maximum"
-ENABLE_DSLL_MONITOR = True
-DSLL_CONFIG = {
-    "monitor_interval": 0.05,  # 50ms for ultra-sensitive detection
-    "ledger_max_size": 50000,  # Larger ledger for comprehensive logging
+```json
+{
+  "protection_levels": {
+    "testing": {
+      "description": "Ultra-sensitive testing configuration",
+      "max_human_frequency": 5.0,
+      "automation_threshold": 0.3,
+      "auto_terminate": true,
+      "extreme_detection": true,
+      "dsll_enabled": true,
+      "scan_interval": 0.5,
+      "critical_risk_threshold": 0.7
+    }
+  },
+  "monitors": {
+    "dsll_monitor": {
+      "enabled": true,
+      "settings": {
+        "monitor_interval": 0.05,
+        "ledger_max_size": 50000,
+        "pattern_analysis_window": 100,
+        "cryptographic_verification": true
+      }
+    },
+    "process_monitor": {
+      "enabled": true,
+      "settings": {
+        "scan_interval": 1.0,
+        "auto_terminate_threats": true,
+        "behavioral_analysis": true
+      }
+    }
+  }
 }
 ```
 
-### Testing-Specific Settings
+### Configuration Management for Testing
 ```python
-# Enable all monitors for comprehensive testing
-ENABLE_INPUT_MONITOR = True
-ENABLE_PROCESS_MONITOR = True
-ENABLE_MEMORY_MONITOR = True
-ENABLE_DSLL_MONITOR = True
+from config_manager import get_config
 
-# Aggressive detection thresholds
-MAX_HUMAN_FREQUENCY = 5.0  # Very low for testing
-AUTOMATION_THRESHOLD = 0.3  # Very sensitive
-AUTO_TERMINATE_THREATS = True
+# Get configuration
+config = get_config()
+
+# Enable ultra-sensitive testing mode
+config.set("protection_levels.testing.automation_threshold", 0.2)
+config.set("monitors.dsll_monitor.settings.monitor_interval", 0.05)
+config.save_config()
+
+# Add test-specific signatures
+config.add_custom_signature("test_cheat_tool")
+config.add_whitelist_process("legitimate_test_app.exe")
 ```
 
 ## 📊 Understanding Test Results
@@ -307,8 +337,8 @@ python protect_app.py app.exe --no-launch
 
 ### False Positives
 1. **Lower Protection Level**: Try `--level medium` or `--level low`
-2. **Adjust Thresholds**: Edit `config.py` to reduce sensitivity
-3. **Whitelist Processes**: Modify process monitor to ignore specific tools
+2. **Adjust Thresholds**: Edit `blacs_config.json` to reduce sensitivity
+3. **Whitelist Processes**: Use config manager to add processes to whitelist
 
 ### Performance Issues
 1. **Reduce DSLL Frequency**: Increase `monitor_interval` in config

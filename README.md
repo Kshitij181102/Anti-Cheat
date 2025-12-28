@@ -26,48 +26,45 @@
 - **🚫 Auto-Termination**: Automatically terminates detected cheat tools
 - **🔒 Self-Protection**: High priority process with tamper-resistant mechanisms
 
-## 🚀 Quick Start - Protect Any Application
+## 🚀 Quick Start - Tamper-Proof Protection
 
-### Method 1: Tamper-Proof Guardian (Most Secure)
+### Primary Method: BLACS Guardian (Requires Admin)
 
 ```bash
-# Requires Administrator privileges
+# Requires Administrator privileges - tamper-proof protection
 python blacs_guardian.py "C:\Windows\System32\calc.exe" --level high
 
-# Monitor without launching (recommended)
+# Monitor without launching (default behavior)
 python blacs_guardian.py "C:\Program Files\MyGame\game.exe" --level maximum
+
+# Auto-find common applications
+python blacs_guardian.py calc.exe --level high
 ```
 
-### Method 2: Universal Application Protector
-
-```bash
-# Monitor mode (default) - waits for application to start
-python protect_app.py "C:\Windows\System32\calc.exe"
-
-# Launch and protect mode
-python protect_app.py "C:\Windows\System32\calc.exe" --launch
-
-# Just use executable name (auto-finds common locations)
-python protect_app.py calc.exe
-```
-
-### Method 3: Install as Tamper-Proof Service
-
-```bash
-# Install as Windows service (requires pywin32)
-python install_guardian_service.py
-
-# Creates tamper-proof service that starts with Windows
-```
-
-### Method 4: Batch Script (Windows)
+### Batch Script (Windows)
 
 ```batch
-# Tamper-proof protection
-start_guardian.bat "C:\Windows\System32\calc.exe" high
+# Tamper-proof protection with admin check
+protect.bat "C:\Windows\System32\calc.exe" high
+protect.bat "C:\Program Files\MyGame\game.exe" maximum
+protect.bat calc.exe medium
+```
 
-# Regular protection
-protect.bat calc.exe high
+### CLI Interface
+
+```bash
+# Basic protection via CLI (redirects to Guardian)
+python -m blacs.cli protect calc.exe --level high
+python -m blacs.cli protect "C:\Program Files\MyApp\app.exe" --level maximum
+```
+
+### Install as Windows Service
+
+```bash
+# Install as tamper-proof Windows service (requires pywin32)
+python install_guardian_service.py
+
+# Creates service that starts with Windows and requires admin to stop
 ```
 
 ## 🎯 What BLACS with DSLL Detects
@@ -98,44 +95,104 @@ protect.bat calc.exe high
 - **🛡️ Tamper Resistance**: Cryptographically secured monitoring system
 - **🚫 Auto-Termination**: Automatically kills detected cheat processes
 
-## 🔧 Configuration with DSLL
+## 🔧 Configuration System
 
-### Advanced Configuration File
-Edit `config.py` to adjust all settings including DSLL:
+### Master JSON Configuration
+All BLACS settings are managed through `blacs_config.json`:
 
-```python
-# Choose protection level: "low", "medium", "high", "maximum"
-PROTECTION_LEVEL = "high"
-
-# Monitor enable/disable
-ENABLE_INPUT_MONITOR = True
-ENABLE_PROCESS_MONITOR = True
-ENABLE_MEMORY_MONITOR = True
-ENABLE_DSLL_MONITOR = True  # Advanced DSLL Technology
-
-# DSLL Configuration
-DSLL_CONFIG = {
-    "enabled": True,
-    "monitor_interval": 0.1,  # 100ms high-frequency monitoring
-    "ledger_max_size": 10000,  # Maximum syscall records
-    "critical_syscalls": [
-        "NtReadVirtualMemory",
-        "NtWriteVirtualMemory",
-        "NtOpenProcess",
-        # ... more critical syscalls
-    ]
+```json
+{
+  "system": {
+    "name": "BLACS Guardian",
+    "admin_required": true,
+    "self_protection": true
+  },
+  "protection_levels": {
+    "high": {
+      "max_human_frequency": 15.0,
+      "automation_threshold": 0.6,
+      "auto_terminate": true,
+      "extreme_detection": true,
+      "dsll_enabled": true,
+      "scan_interval": 2.0
+    }
+  },
+  "monitors": {
+    "dsll_monitor": {
+      "enabled": true,
+      "settings": {
+        "monitor_interval": 0.1,
+        "ledger_max_size": 10000,
+        "cryptographic_verification": true
+      }
+    }
+  }
 }
 ```
 
-### Protection Levels with DSLL
-- **Low**: Basic protection, DSLL disabled
-- **Medium**: Balanced detection, DSLL enabled (recommended)
-- **High**: Strict detection, Full DSLL monitoring
-- **Maximum**: Extreme sensitivity, Advanced DSLL analysis
+### Configuration Management
+Use the built-in configuration manager:
+
+```python
+from config_manager import get_config
+
+# Get configuration instance
+config = get_config()
+
+# Read settings
+protection_level = config.get("protection_levels.high")
+dsll_enabled = config.is_dsll_enabled()
+
+# Modify settings
+config.set("monitors.dsll_monitor.enabled", True)
+config.save_config()
+
+# Add custom signatures
+config.add_custom_signature("my_cheat_tool")
+config.add_whitelist_process("my_app.exe")
+```
+
+### Protection Levels with JSON Configuration
+Configure protection levels in `blacs_config.json`:
+
+```json
+{
+  "protection_levels": {
+    "low": {
+      "description": "Basic protection for development",
+      "max_human_frequency": 50.0,
+      "automation_threshold": 0.8,
+      "auto_terminate": false,
+      "dsll_enabled": false
+    },
+    "medium": {
+      "description": "Balanced protection for general use", 
+      "max_human_frequency": 25.0,
+      "automation_threshold": 0.7,
+      "auto_terminate": true,
+      "dsll_enabled": true
+    },
+    "high": {
+      "description": "Strict protection for important applications",
+      "max_human_frequency": 15.0,
+      "automation_threshold": 0.6,
+      "auto_terminate": true,
+      "dsll_enabled": true
+    },
+    "maximum": {
+      "description": "Extreme protection for critical applications",
+      "max_human_frequency": 10.0,
+      "automation_threshold": 0.5,
+      "auto_terminate": true,
+      "dsll_enabled": true
+    }
+  }
+}
+```
 
 ## 💻 Usage Examples
 
-### Tamper-Proof Guardian Protection
+### Tamper-Proof Guardian Protection (Primary Method)
 
 #### Protect System Applications (Requires Admin)
 ```bash
@@ -161,27 +218,16 @@ python blacs_guardian.py "C:\Program Files\Epic Games\GameName\game.exe" --level
 python blacs_guardian.py "C:\Games\MyGame\game.exe" --level maximum
 ```
 
-### Universal Application Protection
+#### Batch Script Usage
+```batch
+# Simple tamper-proof protection
+protect.bat calc.exe high
 
-#### Monitor Mode (Default - Recommended)
-```bash
-# Monitor without launching (waits for app to start)
-python protect_app.py calc.exe --level high
+# Game protection with admin privileges
+protect.bat "C:\Program Files\MyGame\game.exe" maximum
 
-# Monitor any application
-python protect_app.py "C:\Program Files\MyApp\app.exe" --level maximum
-
-# Auto-find common applications
-python protect_app.py chrome.exe --level medium
-```
-
-#### Launch and Protect Mode
-```bash
-# Launch and protect immediately
-python protect_app.py calc.exe --launch --level high
-
-# Launch game with protection
-python protect_app.py "C:\Games\MyGame\game.exe" --launch --level maximum
+# Auto-find applications
+protect.bat notepad.exe medium
 ```
 
 ### Service Installation (Most Secure)
@@ -191,21 +237,9 @@ python protect_app.py "C:\Games\MyGame\game.exe" --launch --level maximum
 python install_guardian_service.py
 
 # Choose installation type:
-# 1. Windows Service (starts with Windows)
+# 1. Windows Service (starts with Windows, requires admin to stop)
 # 2. Tamper-proof launcher only
 # 3. Both service and launcher
-```
-
-### Command Line Interface (CLI)
-```bash
-# Basic protection
-python -m blacs.cli protect notepad.exe
-
-# Advanced protection with DSLL
-python -m blacs.cli protect "C:\Windows\System32\calc.exe" --level high
-
-# Maximum security for games
-python -m blacs.cli protect "C:\Program Files\MyGame\game.exe" --level maximum
 ```
 
 ### Integration Examples with DSLL
@@ -255,6 +289,9 @@ def secure_game_session():
     
     # Automatically export DSLL ledger after session
     return "Game completed with DSLL protection"
+
+# Note: DSLL log files (dsll_protection_log_*.json) are automatically 
+# generated during protection sessions and can be safely deleted after analysis
 ```
 
 ## 📊 System Requirements
@@ -271,21 +308,16 @@ def secure_game_session():
 - **Code Stop**: Call `blacs.disable_protection()` in your code
 - **Force Stop**: Close the terminal window
 
-## 📁 Project Structure with DSLL
+## 📁 Project Structure
 
 ```
-📁 BLACS/ (Tamper-Proof with Enhanced Detection)
-├── 📄 blacs_guardian.py            # 🛡️ Tamper-Proof Protection Service
+📁 BLACS/ (Tamper-Proof Protection System with JSON Configuration)
+├── 📄 blacs_guardian.py            # 🛡️ Main Tamper-Proof Protection System
+├── 📄 blacs_config.json            # 🔧 Master JSON Configuration File
+├── 📄 config_manager.py            # 🔧 Configuration Management System
 ├── 📄 install_guardian_service.py  # 🔧 Service Installer (Admin Required)
-├── 📄 protect_app.py               # 🌟 Universal Application Protector
-├── 📄 blacs_protect.py             # 🎯 Interactive Launcher
-├── 📄 config.py                    # Configuration with DSLL settings
-├── 📄 example.py                   # Demo with DSLL technology
-├── 📄 protect.bat                  # Windows batch script
-├── 📄 start_guardian.bat           # Tamper-proof launcher (created by installer)
-├── 📄 test_calculator.py           # Calculator protection test example
+├── 📄 protect.bat                  # Tamper-proof batch launcher
 ├── 📄 APPLICATION_TESTING_GUIDE.md # Complete testing guide
-├── 📄 USAGE_GUIDE.md               # Detailed usage instructions
 ├── 📄 README.md                    # Documentation
 ├── 📄 requirements.txt             # Dependencies
 └── 📁 blacs/                       # Core system
@@ -329,7 +361,7 @@ def secure_game_session():
 
 ---
 
-**Ready to experience revolutionary tamper-proof DSLL technology? Run `python blacs_guardian.py calc.exe` as Administrator and watch DSLL detect threats with unprecedented precision!**
+**Ready to experience revolutionary tamper-proof DSLL technology with comprehensive JSON configuration? Run `python blacs_guardian.py calc.exe --level high` as Administrator and customize all settings through `blacs_config.json`!**
 
 ## 🔍 DSLL in Action
 

@@ -1,18 +1,29 @@
 @echo off
-echo 🛡️ BLACS Universal Application Protector
-echo ========================================
+echo 🛡️ BLACS Tamper-Proof Guardian
+echo ===============================
+
+REM Check for admin privileges
+net session >nul 2>&1
+if %errorLevel% == 0 (
+    echo ✅ Administrator privileges: VERIFIED
+) else (
+    echo 🚫 Administrator privileges required!
+    echo    Right-click and select "Run as administrator"
+    pause
+    exit /b 1
+)
 
 if "%~1"=="" (
     echo Usage: protect.bat "application_path" [protection_level]
     echo.
     echo Examples:
     echo   protect.bat "C:\Windows\System32\calc.exe" high
-    echo   protect.bat "C:\Windows\System32\notepad.exe" maximum
-    echo   protect.bat "C:\Program Files\MyGame\game.exe" high
+    echo   protect.bat "C:\Program Files\MyGame\game.exe" maximum
     echo   protect.bat calc.exe medium
     echo.
     echo Protection levels: low, medium, high, maximum
     echo Default level: high
+    pause
     exit /b 1
 )
 
@@ -25,12 +36,13 @@ if "%PROTECTION_LEVEL%"=="" (
 
 echo 🎯 Target Application: %APP_PATH%
 echo 🔒 Protection Level: %PROTECTION_LEVEL%
-echo 🔍 DSLL Technology: ENABLED
+echo 🛡️ Tamper-Proof: ENABLED
+echo 🔍 DSLL Technology: ACTIVE
 echo.
 
-echo 🚀 Starting BLACS protection with DSLL (Monitor Mode)...
-python protect_app.py "%APP_PATH%" --level %PROTECTION_LEVEL%
+echo 🚀 Starting BLACS Tamper-Proof Guardian...
+python blacs_guardian.py "%APP_PATH%" --level %PROTECTION_LEVEL%
 
 echo.
-echo ✅ BLACS protection session completed
+echo ✅ BLACS Guardian session completed
 pause

@@ -3,7 +3,7 @@
 BLACS DSLL Monitor - Deterministic Syscall Lockstep Ledger
 
 Revolutionary shadow verification system that records and validates every 
-sensitive system call during a protected session.
+sensitive system call during a protected session using JSON configuration.
 """
 
 import time
@@ -14,6 +14,13 @@ from typing import Dict, List, Any, Optional, Tuple
 from collections import deque
 from dataclasses import dataclass
 from enum import Enum
+
+# Import JSON configuration
+try:
+    from config_manager import get_config
+    CONFIG_AVAILABLE = True
+except ImportError:
+    CONFIG_AVAILABLE = False
 
 class SyscallType(Enum):
     """System call types monitored by DSLL."""
@@ -46,33 +53,39 @@ class DSLLMonitor:
     """Deterministic Syscall Lockstep Ledger Monitor."""
     
     def __init__(self):
-        """Initialize DSLL monitor."""
+        """Initialize DSLL monitor with JSON configuration."""
         self.enabled = True
         self.monitoring_active = False
         self.monitoring_thread: Optional[threading.Thread] = None
         
+        # Load JSON configuration
+        if CONFIG_AVAILABLE:
+            self.config = get_config()
+            dsll_config = self.config.get_dsll_config()
+            monitor_config = self.config.get_monitor_config("dsll_monitor")
+            
+            self.enabled = dsll_config.get("enabled", True)
+            self.monitor_interval = monitor_config.get("settings", {}).get("monitor_interval", 0.1)
+            ledger_max_size = monitor_config.get("settings", {}).get("ledger_max_size", 10000)
+            self.critical_syscalls = set(dsll_config.get("critical_syscalls", []))
+        else:
+            # Fallback configuration
+            self.monitor_interval = 0.1
+            ledger_max_size = 10000
+            self.critical_syscalls = {
+                "NtReadVirtualMemory", "NtWriteVirtualMemory", "NtOpenProcess",
+                "NtCreateThread", "NtSuspendProcess", "NtResumeProcess",
+                "NtTerminateProcess", "NtAllocateVirtualMemory", "NtProtectVirtualMemory",
+                "NtCreateFile", "NtSetValueKey", "NtLoadDriver"
+            }
+        
         # DSLL ledger storage
-        self.syscall_ledger: deque = deque(maxlen=10000)  # Last 10k syscalls
+        self.syscall_ledger: deque = deque(maxlen=ledger_max_size)
         self.verification_hashes: Dict[str, str] = {}
         self.suspicious_patterns: List[Dict[str, Any]] = []
         
         # Monitoring configuration
-        self.monitor_interval = 0.1  # 100ms intervals
         self.protected_processes: List[int] = []
-        self.critical_syscalls = {
-            "NtReadVirtualMemory",
-            "NtWriteVirtualMemory",
-            "NtOpenProcess",
-            "NtCreateThread",
-            "NtSuspendProcess",
-            "NtResumeProcess",
-            "NtTerminateProcess",
-            "NtAllocateVirtualMemory",
-            "NtProtectVirtualMemory",
-            "NtCreateFile",
-            "NtSetValueKey",
-            "NtLoadDriver"
-        }
         
         # Statistics
         self.stats = {
