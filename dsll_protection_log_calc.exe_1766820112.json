@@ -1,0 +1,14 @@
+{
+  "export_timestamp": 1766820112.1742158,
+  "total_records": 0,
+  "statistics": {
+    "total_syscalls_recorded": 0,
+    "suspicious_patterns_detected": 0,
+    "verification_failures": 0,
+    "protected_processes": 1,
+    "ledger_size": 0,
+    "monitoring_active": true,
+    "recent_patterns": 0
+  },
+  "ledger": []
+}

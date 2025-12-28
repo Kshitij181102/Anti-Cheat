@@ -15,48 +15,59 @@
 
 ## ✨ Key Features
 
+- **🛡️ Tamper-Proof Protection**: Requires Administrator privileges, cannot be stopped by regular users
 - **🔍 DSLL Technology**: Revolutionary syscall monitoring and verification system
-- **🛡️ Comprehensive Detection**: Detects Cheat Engine, debuggers, injection tools, and automation
 - **🧠 AI-Powered Analysis**: Advanced behavioral pattern recognition with machine learning
 - **🌐 Universal Compatibility**: Works with any software - games, applications, utilities
 - **⚡ Ultra-Fast Response**: <50ms threat detection with DSLL technology
-- **🎯 Simple Configuration**: Easy-to-edit configuration with DSLL settings
+- **🎯 Monitor Mode**: Monitors applications without launching them (default behavior)
 - **🔧 Easy Integration**: Simple SDK with DSLL support built-in
+- **📊 Enhanced Detection**: 500+ cheat signatures including mobile/APK hacking tools
+- **🚫 Auto-Termination**: Automatically terminates detected cheat tools
+- **🔒 Self-Protection**: High priority process with tamper-resistant mechanisms
 
-## 🚀 Quick Start
+## 🚀 Quick Start - Protect Any Application
 
-### 1. Install Dependencies
+### Method 1: Tamper-Proof Guardian (Most Secure)
+
 ```bash
-pip install psutil
+# Requires Administrator privileges
+python blacs_guardian.py "C:\Windows\System32\calc.exe" --level high
+
+# Monitor without launching (recommended)
+python blacs_guardian.py "C:\Program Files\MyGame\game.exe" --level maximum
 ```
 
-### 2. Protect Any Application (CLI)
+### Method 2: Universal Application Protector
+
 ```bash
-# Protect notepad with DSLL technology
-python -m blacs.cli protect "C:\Windows\System32\notepad.exe"
+# Monitor mode (default) - waits for application to start
+python protect_app.py "C:\Windows\System32\calc.exe"
 
-# Protect calculator with maximum security
-python -m blacs.cli protect "C:\Windows\System32\calc.exe" --level maximum
+# Launch and protect mode
+python protect_app.py "C:\Windows\System32\calc.exe" --launch
 
-# Or use the batch script (Windows)
-protect.bat "C:\Windows\System32\notepad.exe" high
+# Just use executable name (auto-finds common locations)
+python protect_app.py calc.exe
 ```
 
-### 3. Run the Example with DSLL
+### Method 3: Install as Tamper-Proof Service
+
 ```bash
-python example.py
+# Install as Windows service (requires pywin32)
+python install_guardian_service.py
+
+# Creates tamper-proof service that starts with Windows
 ```
 
-### 4. Test Advanced DSLL Detection
-```bash
-# Run any protected application with DSLL technology
-python -m blacs.cli protect "C:\Windows\System32\notepad.exe"
+### Method 4: Batch Script (Windows)
 
-# While it's running, try opening:
-# - Cheat Engine (detected by DSLL syscall monitoring)
-# - Process Hacker (detected by DSLL pattern analysis)
-# - Any debugger (detected by DSLL behavioral analysis)
-# DSLL will detect and alert with detailed forensic information!
+```batch
+# Tamper-proof protection
+start_guardian.bat "C:\Windows\System32\calc.exe" high
+
+# Regular protection
+protect.bat calc.exe high
 ```
 
 ## 🎯 What BLACS with DSLL Detects
@@ -68,20 +79,24 @@ python -m blacs.cli protect "C:\Windows\System32\notepad.exe"
 - **⚡ Microsecond Precision**: Ultra-fast detection with detailed forensic logging
 - **🔒 Cryptographic Verification**: Tamper-proof ledger with verification hashes
 
-### Traditional Detection (Enhanced by DSLL)
-- **Memory Editors**: Cheat Engine, ArtMoney, GameGuardian, Memory Hacker
-- **Debuggers**: OllyDbg, x64dbg, IDA Pro, WinDbg, Process Hacker
-- **Injection Tools**: DLL Injectors, Process Injectors, Code Cave tools
-- **Speed Hacks**: Game Speed modifiers, Time manipulation tools
-- **Trainers**: Fling Trainers, MrAntiFun, WeMod, Plitch
-- **Automation**: Auto-clickers, Bots, Macro tools, AutoHotkey
-- **General**: Any process with cheat/hack/mod/crack/bot in name
+### Comprehensive Cheat Detection (500+ Signatures)
+- **Memory Editors**: Cheat Engine, ArtMoney, GameGuardian, Memory Hacker, T-Search
+- **Debuggers**: OllyDbg, x64dbg, IDA Pro, WinDbg, Process Hacker, Ghidra
+- **Injection Tools**: DLL Injectors, Process Injectors, Code Cave tools, API Hooks
+- **Speed Hacks**: Game Speed modifiers, Time manipulation tools, Clock blockers
+- **Trainers**: Fling Trainers, MrAntiFun, WeMod, Plitch, FearlessRevolution
+- **Automation**: Auto-clickers, Bots, Macro tools, AutoHotkey, Input automation
+- **Mobile/APK Hacking**: GameGuardian, Lucky Patcher, Freedom, Cheat Droid, Xposed
+- **Network Tools**: Wireshark, Fiddler, Burp Suite, Packet editors, Lag switches
+- **Cracking Tools**: Keygens, Patchers, Loaders, Activators, Unpackers
+- **Cryptocurrency Miners**: Bitcoin miners, Ethereum miners, Resource abuse tools
 
 ### DSLL Advanced Capabilities
 - **📝 Forensic Ledger**: Complete audit trail of all system operations
 - **🔍 Pattern Recognition**: Detects unknown threats through behavioral analysis
 - **⚡ Real-time Analysis**: Continuous monitoring with instant threat response
 - **🛡️ Tamper Resistance**: Cryptographically secured monitoring system
+- **🚫 Auto-Termination**: Automatically kills detected cheat processes
 
 ## 🔧 Configuration with DSLL
 
@@ -120,6 +135,67 @@ DSLL_CONFIG = {
 
 ## 💻 Usage Examples
 
+### Tamper-Proof Guardian Protection
+
+#### Protect System Applications (Requires Admin)
+```bash
+# Windows Calculator - tamper-proof
+python blacs_guardian.py calc.exe --level high
+
+# Windows Notepad - maximum security
+python blacs_guardian.py notepad.exe --level maximum
+
+# Any application - ultra-secure
+python blacs_guardian.py "C:\Program Files\MyApp\app.exe" --level high
+```
+
+#### Protect Games (Tamper-Proof)
+```bash
+# Steam game - maximum protection
+python blacs_guardian.py "C:\Program Files (x86)\Steam\steamapps\common\GameName\game.exe" --level maximum
+
+# Epic Games - high security
+python blacs_guardian.py "C:\Program Files\Epic Games\GameName\game.exe" --level high
+
+# Any game - tamper-resistant
+python blacs_guardian.py "C:\Games\MyGame\game.exe" --level maximum
+```
+
+### Universal Application Protection
+
+#### Monitor Mode (Default - Recommended)
+```bash
+# Monitor without launching (waits for app to start)
+python protect_app.py calc.exe --level high
+
+# Monitor any application
+python protect_app.py "C:\Program Files\MyApp\app.exe" --level maximum
+
+# Auto-find common applications
+python protect_app.py chrome.exe --level medium
+```
+
+#### Launch and Protect Mode
+```bash
+# Launch and protect immediately
+python protect_app.py calc.exe --launch --level high
+
+# Launch game with protection
+python protect_app.py "C:\Games\MyGame\game.exe" --launch --level maximum
+```
+
+### Service Installation (Most Secure)
+
+```bash
+# Install as tamper-proof Windows service
+python install_guardian_service.py
+
+# Choose installation type:
+# 1. Windows Service (starts with Windows)
+# 2. Tamper-proof launcher only
+# 3. Both service and launcher
+```
+
 ### Command Line Interface (CLI)
 ```bash
 # Basic protection
@@ -130,9 +206,6 @@ python -m blacs.cli protect "C:\Windows\System32\calc.exe" --level high
 
 # Maximum security for games
 python -m blacs.cli protect "C:\Program Files\MyGame\game.exe" --level maximum
-
-# Using batch script (Windows)
-protect.bat "C:\Windows\System32\notepad.exe" high
 ```
 
 ### Integration Examples with DSLL
@@ -201,10 +274,18 @@ def secure_game_session():
 ## 📁 Project Structure with DSLL
 
 ```
-📁 BLACS/ (Advanced with DSLL)
+📁 BLACS/ (Tamper-Proof with Enhanced Detection)
+├── 📄 blacs_guardian.py            # 🛡️ Tamper-Proof Protection Service
+├── 📄 install_guardian_service.py  # 🔧 Service Installer (Admin Required)
+├── 📄 protect_app.py               # 🌟 Universal Application Protector
+├── 📄 blacs_protect.py             # 🎯 Interactive Launcher
 ├── 📄 config.py                    # Configuration with DSLL settings
 ├── 📄 example.py                   # Demo with DSLL technology
-├── 📄 protect.bat                  # Windows batch script for easy protection
+├── 📄 protect.bat                  # Windows batch script
+├── 📄 start_guardian.bat           # Tamper-proof launcher (created by installer)
+├── 📄 test_calculator.py           # Calculator protection test example
+├── 📄 APPLICATION_TESTING_GUIDE.md # Complete testing guide
+├── 📄 USAGE_GUIDE.md               # Detailed usage instructions
 ├── 📄 README.md                    # Documentation
 ├── 📄 requirements.txt             # Dependencies
 └── 📁 blacs/                       # Core system
@@ -216,7 +297,7 @@ def secure_game_session():
     ├── 📁 monitors/                # Detection monitors
     │   ├── 📄 input_monitor.py     # Input detection
     │   ├── 📄 memory_monitor.py    # Memory protection
-    │   ├── 📄 process_monitor_windows.py # Process detection
+    │   ├── 📄 process_monitor_windows.py # Process detection (500+ signatures)
     │   └── 📄 dsll_monitor.py      # 🔍 DSLL Technology
     ├── 📁 platform/                # Platform utilities
     └── 📁 sdk/                     # Integration SDK with DSLL
@@ -248,7 +329,7 @@ def secure_game_session():
 
 ---
 
-**Ready to experience revolutionary DSLL technology? Run `python example.py` and watch DSLL detect threats with unprecedented precision!**
+**Ready to experience revolutionary tamper-proof DSLL technology? Run `python blacs_guardian.py calc.exe` as Administrator and watch DSLL detect threats with unprecedented precision!**
 
 ## 🔍 DSLL in Action
 

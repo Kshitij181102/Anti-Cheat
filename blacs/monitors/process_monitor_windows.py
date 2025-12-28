@@ -52,7 +52,7 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
         self.baseline_processes: Dict[int, WindowsProcessInfo] = {}
         self.baseline_established = False
         
-        # EXTREME DETECTION: Comprehensive cheat tool database
+        # EXTREME DETECTION: Comprehensive cheat tool database (ENHANCED)
         self.suspicious_names = {
             # ===== MEMORY EDITORS & CHEAT ENGINES =====
             "cheatengine", "cheat engine", "cheat-engine", "ce", "ce64", "ce32",
@@ -62,6 +62,8 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
             "memoryviewer", "memory viewer", "memview", "hexeditor", "hex editor",
             "memorypatching", "memory patching", "mempatch", "mem patch",
             "gameconqueror", "game conqueror", "memwatch", "mem watch",
+            "memoryscanner", "memory scanner", "memscan", "mem scan", "ramhack", "ram hack",
+            "ramcheat", "ram cheat", "memtool", "mem tool", "memorymanipulator", "memory manipulator",
             
             # ===== DEBUGGERS & ANALYSIS TOOLS =====
             "ollydbg", "olly", "x64dbg", "x32dbg", "x96dbg", "xdbg",
@@ -73,6 +75,7 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
             "rohitab", "immunity", "immunitydebugger", "immunity debugger",
             "radare2", "r2", "ghidra", "binaryninja", "binary ninja",
             "hopper", "disassembler", "decompiler", "reverser", "reverse",
+            "softice", "soft ice", "syser", "syser debugger", "winapi", "ntapi",
             
             # ===== INJECTION & HOOKING TOOLS =====
             "injector", "inject", "dllinjector", "dll injector", "processinjector",
@@ -127,7 +130,15 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
             "samp", "multitheft", "multi theft", "gtasa", "gta sa", "vcmp",
             "mta", "multitheftauto", "openiv", "open iv", "modloader", "mod loader",
             
-            # ===== GENERAL HACKING & CHEATING TERMS =====
+            # ===== MOBILE/APK HACKING TOOLS =====
+            "gameguardian", "gg", "guardian", "lucky patcher", "luckypatcher",
+            "freedom", "creehack", "cree hack", "game killer", "gamekiller",
+            "sb game hacker", "sbgamehacker", "cheat droid", "cheatdroid",
+            "game cih", "gamecih", "xmodgames", "xmod games", "ihackedit",
+            "ifile", "filza", "apktool", "apk tool", "dex2jar", "jadx",
+            "frida", "xposed", "magisk", "root", "jailbreak", "cydia",
+            "substrate", "hooking", "runtime", "manipulation", "bytecode",
+            "bluestacks", "nox", "memu", "ldplayer", "gameloop", "phoenix os",
             "hack", "hacker", "hacking", "cheat", "cheater", "cheating", "exploit",
             "exploiter", "exploiting", "glitch", "glitcher", "glitching", "abuse",
             "abuser", "abusing", "unfair", "advantage", "enhancement", "enhancer",
@@ -168,7 +179,23 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
             
             # ===== ADDITIONAL SUSPICIOUS PATTERNS =====
             "external", "overlay", "injection", "modification", "manipulation",
-            "automation", "simulation", "emulation", "virtualization", "containerization"
+            "automation", "simulation", "emulation", "virtualization", "containerization",
+            
+            # ===== MOBILE/APK HACKING TOOLS =====
+            "gameguardian", "gg", "guardian", "lucky patcher", "luckypatcher",
+            "freedom", "creehack", "cree hack", "game killer", "gamekiller",
+            "sb game hacker", "sbgamehacker", "cheat droid", "cheatdroid",
+            "game cih", "gamecih", "xmodgames", "xmod games", "ihackedit",
+            "ifile", "filza", "apktool", "apk tool", "dex2jar", "jadx",
+            "frida", "xposed", "magisk", "root", "jailbreak", "cydia",
+            "substrate", "hooking", "runtime", "manipulation", "bytecode",
+            "bluestacks", "nox", "memu", "ldplayer", "gameloop", "phoenix os",
+            
+            # ===== CRYPTOCURRENCY & MINING =====
+            "miner", "mining", "bitcoin", "ethereum", "crypto", "cryptocurrency",
+            "hashrate", "gpu", "cpu", "asic", "pool", "wallet", "blockchain",
+            "monero", "zcash", "litecoin", "dogecoin", "nicehash", "claymore",
+            "phoenixminer", "t-rex", "gminer", "lolminer", "nbminer", "teamredminer"
         }
         
         # EXTREME DETECTION: Suspicious paths (expanded)
