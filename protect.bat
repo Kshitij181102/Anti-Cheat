@@ -17,11 +17,12 @@ if "%~1"=="" (
     echo Usage: protect.bat "application_path" [protection_level]
     echo.
     echo Examples:
+    echo   protect.bat "C:\Windows\System32\calc.exe" safe
     echo   protect.bat "C:\Windows\System32\calc.exe" high
     echo   protect.bat "C:\Program Files\MyGame\game.exe" maximum
-    echo   protect.bat calc.exe medium
+    echo   protect.bat calc.exe safe
     echo.
-    echo Protection levels: low, medium, high, maximum
+    echo Protection levels: safe, low, medium, high, maximum
     echo Default level: high
     pause
     exit /b 1

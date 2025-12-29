@@ -1,0 +1,9 @@
+2025-12-29 12:44:45,661 - INFO - TEST_THREAT_EVENT: {
+  "event": "TEST_THREAT_EVENT",
+  "timestamp": "2025-12-29T12:44:45.661970",
+  "threat_type": "test_cheat_tool",
+  "process_name": "test_cheat.exe",
+  "process_id": 67890,
+  "action_taken": "test_detection",
+  "message": "Threat logging test successful"
+}

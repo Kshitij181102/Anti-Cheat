@@ -30,25 +30,37 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
         """Initialize the Windows process monitor."""
         super().__init__("WindowsProcessMonitor")
         
+        # Protection level (will be set by Guardian)
+        self.protection_level = None
+        
         # Load JSON configuration
         if CONFIG_AVAILABLE:
             self.config = get_config()
             monitor_config = self.config.get_monitor_config("process_monitor")
+            system_protection = self.config.get("advanced_settings.system_protection", {})
             
             self.scan_interval = monitor_config.get("settings", {}).get("scan_interval", 2.0)
             self.auto_terminate_threats = monitor_config.get("settings", {}).get("auto_terminate_threats", True)
-            self.extreme_detection_mode = True  # Always enabled for comprehensive protection
-            self.critical_risk_threshold = 0.9
+            self.scan_mode = monitor_config.get("settings", {}).get("scan_mode", "malicious_only")
+            self.ignore_system_processes = system_protection.get("ignore_system_processes", True)
+            self.focus_on_target = monitor_config.get("settings", {}).get("focus_on_target", True)
             
-            # Load threat signatures from JSON config
-            self.suspicious_names = set(self.config.get_threat_signatures())
-            self.whitelist_processes = set(self.config.get_whitelist_processes())
+            # Load only malicious signatures from JSON config
+            self.malicious_signatures = set()
+            signature_db = self.config.get("threat_detection.signature_database", {})
+            for category, signatures in signature_db.items():
+                if isinstance(signatures, list):
+                    self.malicious_signatures.update(signatures)
+            
+            # System process patterns to ignore
+            self.system_process_patterns = set(system_protection.get("system_process_patterns", []))
         else:
             # Fallback configuration
             self.scan_interval = scan_interval
             self.auto_terminate_threats = True
-            self.extreme_detection_mode = True
-            self.critical_risk_threshold = 0.9
+            self.scan_mode = "malicious_only"
+            self.ignore_system_processes = True
+            self.focus_on_target = True
             self._load_fallback_signatures()
         
         self.monitoring_thread: Optional[threading.Thread] = None
@@ -57,6 +69,10 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
         # Process baseline
         self.baseline_processes: Dict[int, WindowsProcessInfo] = {}
         self.baseline_established = False
+        
+        # Target process tracking
+        self.target_process_name = None
+        self.target_process_pid = None
         
         # Process baseline
         self.baseline_processes: Dict[int, WindowsProcessInfo] = {}
@@ -336,50 +352,30 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
         self.baseline_processes: Dict[int, WindowsProcessInfo] = {}
         self.baseline_established = False
     
+    def set_target_process(self, process_name: str, process_pid: int = None):
+        """Set the target process to protect."""
+        self.target_process_name = process_name.lower()
+        self.target_process_pid = process_pid
+        print(f"🎯 Process Monitor: Targeting {process_name}")
+    
     def _load_fallback_signatures(self) -> None:
-        """Load fallback cheat signatures when JSON config is not available."""
-        # Simplified signature list - most common cheat tools
-        self.suspicious_names = {
-            # Memory editors
-            "cheatengine", "cheat engine", "ce", "artmoney", "gameguardian",
-            "memoryeditor", "memoryhacker", "memhack", "tsearch", "scanmem",
-            
-            # Debuggers
-            "ollydbg", "x64dbg", "x32dbg", "ida", "windbg", "processhacker",
-            
-            # Injection tools
-            "injector", "dllinjector", "processinjector", "codecave", "hooklib",
-            
-            # Speed hacks
-            "speedhack", "gamespeed", "timescale", "clockblocker", "speedgear",
-            
-            # Trainers
-            "trainer", "gametrainer", "fling", "mrantifun", "wemod", "plitch",
-            
-            # Automation
-            "autoclicker", "autoclick", "clickbot", "mousebot", "autohotkey", "ahk",
-            
-            # General terms
-            "hack", "cheat", "bot", "exploit", "mod", "crack", "patch"
+        """Load fallback malicious signatures when JSON config is not available."""
+        # Only the most obvious cheat tools
+        self.malicious_signatures = {
+            # Exact executable names only
+            "cheatengine.exe", "ce.exe", "ce64.exe", "ce32.exe",
+            "artmoney.exe", "artmoneypro.exe", "gameguardian.exe",
+            "ollydbg.exe", "x64dbg.exe", "x32dbg.exe", "processhacker.exe",
+            "injector.exe", "dllinjector.exe", "speedhack.exe",
+            "trainer.exe", "gametrainer.exe", "autoclicker.exe", "aimbot.exe"
         }
         
-        # Suspicious paths
-        self.suspicious_paths = {
-            "\\temp\\", "\\tmp\\", "\\downloads\\", "\\desktop\\",
-            "\\cheat", "\\hack", "\\trainer", "\\mod", "\\crack"
-        }
-        
-        # Suspicious executables
-        self.suspicious_executables = {
-            "cheatengine.exe", "ce.exe", "artmoney.exe", "trainer.exe",
-            "hack.exe", "cheat.exe", "bot.exe", "crack.exe", "patch.exe"
-        }
-        
-        # Whitelist processes
-        self.whitelist_processes = {
+        # System process patterns to ignore
+        self.system_process_patterns = {
             "system", "smss.exe", "csrss.exe", "wininit.exe", "winlogon.exe",
             "services.exe", "lsass.exe", "svchost.exe", "explorer.exe",
-            "dwm.exe", "conhost.exe", "audiodg.exe", "spoolsv.exe"
+            "dwm.exe", "conhost.exe", "audiodg.exe", "spoolsv.exe",
+            "taskmgr.exe", "taskhost.exe", "taskhostw.exe"
         }
     
     def start_monitoring(self) -> None:
@@ -398,31 +394,11 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
             self.monitoring_thread.join(timeout=2.0)
     
     def _monitoring_loop(self) -> None:
-        """Main monitoring loop for process scanning with EXTREME detection."""
+        """Main monitoring loop - ONLY scans for malicious processes."""
         while not self.stop_event.is_set():
             try:
-                # Enumerate current processes
-                current_processes = self.enumerate_processes()
-                
-                # Establish baseline on first run
-                if not self.baseline_established:
-                    self.baseline_processes = {p.pid: p for p in current_processes if isinstance(p, WindowsProcessInfo)}
-                    self.baseline_established = True
-                else:
-                    # EXTREME DETECTION: Multiple analysis layers
-                    
-                    # Layer 1: Standard process analysis
-                    analysis_results = self.analyze_process_characteristics(current_processes)
-                    violations = self.detect_suspicious_processes(analysis_results)
-                    self.violations.extend(violations)
-                    
-                    # Layer 2: Process relationship analysis
-                    relationship_violations = self._detect_process_relationships()
-                    self.violations.extend(relationship_violations)
-                    
-                    # Layer 3: Real-time threat scanning
-                    threat_violations = self._scan_for_active_threats()
-                    self.violations.extend(threat_violations)
+                # Only scan for malicious processes, ignore everything else
+                self._scan_for_malicious_processes_only()
                 
                 time.sleep(self.scan_interval)
                 
@@ -436,6 +412,311 @@ class WindowsProcessMonitor(ProcessMonitorInterface):
                 )
                 self.violations.append(violation)
                 time.sleep(self.scan_interval)
+    
+    def _scan_for_malicious_processes_only(self) -> None:
+        """Scan for malicious processes with PRECISE matching and comprehensive logging."""
+        try:
+            for proc in psutil.process_iter(['pid', 'name', 'exe', 'cmdline', 'username', 'create_time']):
+                try:
+                    proc_info = proc.info
+                    proc_name = (proc_info.get('name') or '').lower()
+                    proc_exe = (proc_info.get('exe') or '').lower()
+                    
+                    # Skip if no process name
+                    if not proc_name:
+                        continue
+                    
+                    # Log ALL processes for comprehensive monitoring
+                    self._log_process_activity(proc_info, "process_scan")
+                    
+                    # Skip system processes and Windows services
+                    if self._is_system_process(proc_name) or self._is_windows_service(proc_name):
+                        continue
+                    
+                    # PRECISE MATCHING: Only exact executable names
+                    is_malicious = False
+                    detected_signature = None
+                    threat_category = None
+                    
+                    # Check against malicious signatures with ENHANCED matching
+                    for signature in self.malicious_signatures:
+                        # Remove .exe extension from signature for comparison
+                        sig_name = signature.replace('.exe', '').lower()
+                        
+                        # Enhanced matching for CheatEngine variants
+                        if sig_name == 'cheatengine':
+                            # Match any CheatEngine variant (cheatengine, cheatengine-x86_64, etc.)
+                            if 'cheatengine' in proc_name:
+                                is_malicious = True
+                                detected_signature = signature
+                                threat_category = self._get_threat_category(signature)
+                                print(f"🎯 CheatEngine variant detected: {proc_name} matches {signature}")
+                                break
+                        elif sig_name == 'artmoney':
+                            # Match any ArtMoney variant
+                            if 'artmoney' in proc_name:
+                                is_malicious = True
+                                detected_signature = signature
+                                threat_category = self._get_threat_category(signature)
+                                break
+                        elif sig_name == 'processhacker':
+                            # Match Process Hacker variants
+                            if 'processhacker' in proc_name or proc_name.startswith('ph'):
+                                is_malicious = True
+                                detected_signature = signature
+                                threat_category = self._get_threat_category(signature)
+                                break
+                        elif sig_name in ['ollydbg', 'x64dbg', 'x32dbg']:
+                            # Match debugger variants
+                            if sig_name in proc_name:
+                                is_malicious = True
+                                detected_signature = signature
+                                threat_category = self._get_threat_category(signature)
+                                break
+                        else:
+                            # Exact match for other signatures
+                            if sig_name == proc_name or signature == proc_name:
+                                is_malicious = True
+                                detected_signature = signature
+                                threat_category = self._get_threat_category(signature)
+                                break
+                    
+                    if is_malicious:
+                        # Log the threat detection
+                        self._log_threat_detection(proc_info, detected_signature, threat_category)
+                        
+                        print(f"\n🚨 CONFIRMED CHEAT TOOL DETECTED!")
+                        print(f"📝 Process: {proc_name}")
+                        print(f"🎯 PID: {proc.pid}")
+                        print(f"🔍 Signature: {detected_signature}")
+                        print(f"📂 Category: {threat_category}")
+                        
+                        # Create violation
+                        violation = Violation(
+                            component=self.name,
+                            severity=ViolationSeverity.CRITICAL,
+                            description=f"Confirmed cheat tool detected: {proc_name}",
+                            evidence={
+                                "process_name": proc_name,
+                                "process_pid": proc.pid,
+                                "executable_path": proc_exe,
+                                "detected_signature": detected_signature,
+                                "threat_category": threat_category,
+                                "detection_method": "exact_signature_match",
+                                "command_line": proc_info.get('cmdline', []),
+                                "username": proc_info.get('username', 'unknown')
+                            }
+                        )
+                        self.violations.append(violation)
+                        
+                        # Only terminate confirmed cheat tools
+                        if self.auto_terminate_threats and self._is_confirmed_cheat_tool(proc_name):
+                            print(f"⚡ Action: TERMINATING CONFIRMED CHEAT TOOL")
+                            self._terminate_malicious_process(proc, proc_name)
+                        else:
+                            print(f"⚡ Action: LOGGED (termination disabled or uncertain)")
+                        
+                        print("-" * 50)
+                    else:
+                        # Log non-malicious processes for monitoring
+                        self._log_process_activity(proc_info, "legitimate_process")
+                
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+        
+        except Exception as e:
+            print(f"❌ Process scan error: {e}")
+            self._log_error("process_scan_error", str(e))
+    
+    def _is_system_process(self, process_name: str) -> bool:
+        """Check if a process is a system process that should be ignored."""
+        process_name = process_name.lower()
+        
+        # Check against system process patterns
+        for pattern in self.system_process_patterns:
+            if pattern.lower() == process_name:
+                return True
+        
+        # Check for Windows system paths
+        if any(sys_name in process_name for sys_name in ['system32', 'syswow64', 'windows']):
+            return True
+        
+        # Check for Microsoft signed processes (basic heuristic)
+        if any(ms_name in process_name for ms_name in ['microsoft', 'windows', 'ms']):
+            return True
+        
+        return False
+    
+    def _is_windows_service(self, process_name: str) -> bool:
+        """Check if process is a Windows service that should never be terminated."""
+        windows_services = {
+            'udclientservice.exe', 'mpdefendercoreservice.exe', 'rtkaudioservice64.exe',
+            'nvcontainer.exe', 'nvdisplay.container.exe', 'audiodg.exe',
+            'wuauclt.exe', 'trustedinstaller.exe', 'tiworker.exe',
+            'searchindexer.exe', 'searchprotocolhost.exe', 'searchfilterhost.exe',
+            'wmiprvse.exe', 'dllhost.exe', 'rundll32.exe', 'regsvr32.exe',
+            'msiexec.exe', 'spoolsv.exe', 'printfilterpipelinesvc.exe',
+            'windefend.exe', 'msmpeng.exe', 'antimalware service executable',
+            'defender.exe', 'securityhealthservice.exe', 'securityhealthsystray.exe'
+        }
+        return process_name.lower() in windows_services
+    
+    def _is_confirmed_cheat_tool(self, process_name: str) -> bool:
+        """Check if this is a confirmed cheat tool that should be terminated."""
+        confirmed_cheat_tools = {
+            'cheatengine.exe', 'cheatengine-x86_64.exe', 'cheatengine-i386.exe',
+            'artmoney.exe', 'artmoneypro.exe', 'gameguardian.exe',
+            'ollydbg.exe', 'x64dbg.exe', 'x32dbg.exe', 'processhacker.exe',
+            'injector.exe', 'dllinjector.exe', 'speedhack.exe',
+            'trainer.exe', 'gametrainer.exe', 'autoclicker.exe', 'aimbot.exe'
+        }
+        return process_name.lower() in confirmed_cheat_tools
+    
+    def _get_threat_category(self, signature: str) -> str:
+        """Get the category of a threat signature."""
+        if CONFIG_AVAILABLE:
+            signature_db = self.config.get("threat_detection.signature_database", {})
+            for category, signatures in signature_db.items():
+                if isinstance(signatures, list) and signature in signatures:
+                    return category
+        return "unknown"
+    
+    def _log_process_activity(self, proc_info: dict, activity_type: str) -> None:
+        """Log process activity for comprehensive monitoring."""
+        try:
+            import logging
+            import json
+            from datetime import datetime
+            
+            # Configure logging if not already done
+            if not hasattr(self, '_logger_configured'):
+                # Ensure log directory exists
+                log_file = 'blacs_process_monitor.log'
+                
+                # Configure logging with proper formatting
+                logging.basicConfig(
+                    filename=log_file,
+                    level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s',
+                    filemode='a'  # Append mode
+                )
+                
+                # Also log to console for immediate feedback
+                console_handler = logging.StreamHandler()
+                console_handler.setLevel(logging.INFO)
+                formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+                console_handler.setFormatter(formatter)
+                
+                # Get the root logger and add console handler
+                root_logger = logging.getLogger()
+                if not any(isinstance(h, logging.StreamHandler) for h in root_logger.handlers):
+                    root_logger.addHandler(console_handler)
+                
+                self._logger_configured = True
+                
+                # Log initialization
+                logging.info("BLACS Process Monitor logging initialized")
+            
+            log_entry = {
+                "timestamp": datetime.now().isoformat(),
+                "activity_type": activity_type,
+                "process_name": proc_info.get('name', 'unknown'),
+                "process_id": proc_info.get('pid', 0),
+                "executable_path": proc_info.get('exe', 'unknown'),
+                "command_line": proc_info.get('cmdline', []),
+                "username": proc_info.get('username', 'unknown'),
+                "create_time": proc_info.get('create_time', 0)
+            }
+            
+            logging.info(f"PROCESS_ACTIVITY: {json.dumps(log_entry)}")
+            
+            # Also print to console for immediate feedback
+            if activity_type == "threat_detected":
+                print(f"📝 LOGGED THREAT: {proc_info.get('name', 'unknown')} (PID: {proc_info.get('pid', 0)})")
+            
+        except Exception as e:
+            print(f"⚠️ Logging error: {e}")
+            # Fallback: print to console
+            print(f"📝 PROCESS: {proc_info.get('name', 'unknown')} - {activity_type}")
+    
+    def _log_threat_detection(self, proc_info: dict, signature: str, category: str) -> None:
+        """Log threat detection with full details."""
+        try:
+            import logging
+            import json
+            from datetime import datetime
+            
+            log_entry = {
+                "timestamp": datetime.now().isoformat(),
+                "event_type": "THREAT_DETECTED",
+                "process_name": proc_info.get('name', 'unknown'),
+                "process_id": proc_info.get('pid', 0),
+                "executable_path": proc_info.get('exe', 'unknown'),
+                "command_line": proc_info.get('cmdline', []),
+                "username": proc_info.get('username', 'unknown'),
+                "detected_signature": signature,
+                "threat_category": category,
+                "severity": "CRITICAL",
+                "action_taken": "TERMINATE" if self._is_confirmed_cheat_tool(proc_info.get('name', '')) else "LOG_ONLY"
+            }
+            
+            logging.critical(f"THREAT_DETECTION: {json.dumps(log_entry)}")
+            
+            # Also print to console for immediate visibility
+            print(f"🚨 THREAT LOGGED: {proc_info.get('name', 'unknown')} - {signature}")
+            
+        except Exception as e:
+            print(f"⚠️ Threat logging error: {e}")
+            # Fallback: print to console
+            print(f"🚨 THREAT: {proc_info.get('name', 'unknown')} detected as {signature}")
+    
+    def _log_error(self, error_type: str, error_message: str) -> None:
+        """Log errors for debugging."""
+        try:
+            import logging
+            import json
+            from datetime import datetime
+            
+            log_entry = {
+                "timestamp": datetime.now().isoformat(),
+                "event_type": "ERROR",
+                "error_type": error_type,
+                "error_message": error_message
+            }
+            
+            logging.error(f"SYSTEM_ERROR: {json.dumps(log_entry)}")
+            
+        except Exception:
+            pass
+    
+    def _terminate_malicious_process(self, proc: psutil.Process, proc_name: str) -> None:
+        """Terminate a confirmed malicious process."""
+        try:
+            # Immediate termination for malicious processes
+            proc.terminate()
+            time.sleep(0.2)
+            
+            if proc.is_running():
+                proc.kill()
+                time.sleep(0.2)
+            
+            if proc.is_running():
+                # System-level termination (Windows)
+                try:
+                    subprocess.run(['taskkill', '/F', '/PID', str(proc.pid)], 
+                                 capture_output=True, timeout=5)
+                except:
+                    pass
+            
+            # Verify termination
+            time.sleep(0.3)
+            if not proc.is_running():
+                print(f"✅ Successfully terminated malicious process: {proc_name}")
+            else:
+                print(f"⚠️  Malicious process still running: {proc_name} (may be protected)")
+        
+        except Exception as e:
+            print(f"⚠️  Failed to terminate malicious process {proc_name}: {e}")
     
     def _scan_for_active_threats(self) -> List[Violation]:
         """EXTREME: Real-time scanning for active cheat threats."""

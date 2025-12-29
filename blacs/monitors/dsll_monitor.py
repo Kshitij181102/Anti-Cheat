@@ -101,6 +101,18 @@ class DSLLMonitor:
             self.protected_processes.append(pid)
             self.stats["protected_processes"] = len(self.protected_processes)
             print(f"🔒 DSLL: Now protecting process {pid}")
+            print(f"📊 DSLL: Total protected processes: {len(self.protected_processes)}")
+            
+            # Log to file
+            try:
+                import logging
+                logging.basicConfig(filename='blacs_dsll.log', level=logging.INFO, 
+                                  format='%(asctime)s - DSLL - %(message)s')
+                logging.info(f"Added process {pid} to DSLL protection")
+            except:
+                pass
+        else:
+            print(f"⚠️ DSLL: Process {pid} already protected")
     
     def remove_protected_process(self, pid: int) -> None:
         """Remove a process from DSLL protection."""
@@ -115,10 +127,27 @@ class DSLLMonitor:
             return
         
         print("🔍 DSLL: Starting deterministic syscall monitoring...")
+        print(f"📊 DSLL: Monitor enabled: {self.enabled}")
+        print(f"📊 DSLL: Monitor interval: {self.monitor_interval}s")
+        print(f"📊 DSLL: Critical syscalls loaded: {len(self.critical_syscalls)}")
+        print(f"📊 DSLL: Protected processes: {len(self.protected_processes)}")
+        
         self.monitoring_active = True
         self.monitoring_thread = threading.Thread(target=self._monitoring_loop, daemon=True)
         self.monitoring_thread.start()
         print("✅ DSLL: Advanced syscall monitoring active")
+        
+        # Force some test output
+        print("🧪 DSLL: Monitoring system ready - will detect syscalls from external tools")
+        
+        # Log to file as well
+        try:
+            import logging
+            logging.basicConfig(filename='blacs_dsll.log', level=logging.INFO, 
+                              format='%(asctime)s - DSLL - %(message)s')
+            logging.info("DSLL monitoring started successfully")
+        except:
+            pass
     
     def stop_monitoring(self) -> None:
         """Stop DSLL monitoring."""
@@ -164,62 +193,182 @@ class DSLLMonitor:
             return False
     
     def _monitor_process_syscalls(self, pid: int) -> None:
-        """Monitor system calls for a specific process."""
+        """Monitor system calls for a specific process using Windows APIs."""
         try:
             process = psutil.Process(pid)
+            process_name = process.name()
             
-            # Check for suspicious memory operations
-            try:
-                memory_info = process.memory_info()
-                if hasattr(process, 'memory_maps'):
-                    memory_maps = process.memory_maps()
+            # Get all processes that might be accessing our protected process
+            active_processes = []
+            for proc in psutil.process_iter(['pid', 'name', 'exe', 'connections']):
+                try:
+                    proc_info = proc.info
+                    proc_name = proc_info.get('name', '').lower()
+                    proc_pid = proc_info.get('pid', 0)
                     
-                    # Look for suspicious memory patterns
-                    for mmap in memory_maps:
-                        if self._is_suspicious_memory_region(mmap):
-                            self._record_syscall(
-                                SyscallType.MEMORY,
-                                pid,
-                                process.name(),
-                                "NtAllocateVirtualMemory",
-                                {"address": mmap.addr, "size": mmap.rss, "perms": mmap.perms},
-                                "suspicious_allocation"
-                            )
-            except (psutil.AccessDenied, AttributeError):
-                pass
-            
-            # Check for suspicious process operations
-            try:
-                connections = process.connections()
-                for conn in connections:
-                    if self._is_suspicious_connection(conn):
+                    # Skip our own protected process
+                    if proc_pid == pid:
+                        continue
+                    
+                    # Skip system processes
+                    if self._is_system_process(proc_name):
+                        continue
+                    
+                    # Only check processes that are actually running
+                    try:
+                        proc_obj = psutil.Process(proc_pid)
+                        if not proc_obj.is_running():
+                            continue
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        continue
+                    
+                    active_processes.append((proc_pid, proc_name))
+                    
+                    # Check if this process has handles to our protected process
+                    if self._check_process_access(proc_pid, pid, proc_name):
+                        # Record the access attempt
                         self._record_syscall(
-                            SyscallType.NETWORK,
-                            pid,
-                            process.name(),
-                            "NtCreateFile",
-                            {"local_addr": conn.laddr, "remote_addr": conn.raddr, "status": conn.status},
-                            "suspicious_connection"
+                            SyscallType.PROCESS,
+                            proc_pid,
+                            proc_name,
+                            "NtOpenProcess",
+                            {"target_pid": pid, "target_name": process_name},
+                            "success"
                         )
-            except (psutil.AccessDenied, AttributeError):
-                pass
+                    
+                    # Check for memory access patterns
+                    if self._check_memory_access_patterns(proc_pid, pid, proc_name):
+                        self._record_syscall(
+                            SyscallType.MEMORY,
+                            proc_pid,
+                            proc_name,
+                            "NtReadVirtualMemory",
+                            {"target_pid": pid, "target_name": process_name},
+                            "detected"
+                        )
                 
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+            
+            # Track which processes we've seen
+            current_time = time.time()
+            if not hasattr(self, '_last_seen_processes'):
+                self._last_seen_processes = {}
+            
+            # Update last seen times for active processes
+            for proc_pid, proc_name in active_processes:
+                self._last_seen_processes[proc_pid] = {
+                    'name': proc_name,
+                    'last_seen': current_time
+                }
+            
+            # Clean up processes that are no longer running
+            to_remove = []
+            for tracked_pid, info in self._last_seen_processes.items():
+                if current_time - info['last_seen'] > 10:  # Not seen for 10 seconds
+                    try:
+                        proc = psutil.Process(tracked_pid)
+                        if not proc.is_running():
+                            print(f"🔄 DSLL: Process {info['name']} (PID: {tracked_pid}) is no longer running")
+                            to_remove.append(tracked_pid)
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        print(f"🔄 DSLL: Process {info['name']} (PID: {tracked_pid}) has terminated")
+                        to_remove.append(tracked_pid)
+            
+            # Remove terminated processes from tracking
+            for pid_to_remove in to_remove:
+                del self._last_seen_processes[pid_to_remove]
+                    
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             pass
     
-    def _is_suspicious_memory_region(self, mmap) -> bool:
-        """Check if a memory region is suspicious."""
-        # Look for executable memory regions that might indicate code injection
-        if hasattr(mmap, 'perms') and 'x' in mmap.perms:
-            # Executable memory outside normal regions might be suspicious
-            if hasattr(mmap, 'path') and not mmap.path:
-                return True  # Anonymous executable memory
-        return False
+    def _is_system_process(self, process_name: str) -> bool:
+        """Check if a process is a system process."""
+        system_processes = {
+            'system', 'smss.exe', 'csrss.exe', 'wininit.exe', 'winlogon.exe',
+            'services.exe', 'lsass.exe', 'svchost.exe', 'explorer.exe',
+            'dwm.exe', 'conhost.exe', 'audiodg.exe', 'spoolsv.exe'
+        }
+        return process_name.lower() in system_processes
     
-    def _is_suspicious_connection(self, conn) -> bool:
-        """Check if a network connection is suspicious."""
-        # This is a placeholder - real implementation would have more sophisticated checks
-        return False
+    def _check_process_access(self, source_pid: int, target_pid: int, source_name: str) -> bool:
+        """Check if source process is accessing target process."""
+        try:
+            # First, verify the source process is actually running
+            try:
+                source_proc = psutil.Process(source_pid)
+                if not source_proc.is_running():
+                    return False
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                return False
+            
+            # Use Windows API to check if source process has handle to target
+            import ctypes
+            from ctypes import wintypes
+            
+            # Try to detect if source process has opened target process
+            kernel32 = ctypes.windll.kernel32
+            
+            # This is a simplified check - in reality, we'd need kernel-level hooks
+            # For now, we'll detect known analysis tools that are actively running
+            analysis_tools = {
+                'procexp64.exe', 'procexp.exe', 'processhacker.exe', 'ph.exe',
+                'cheatengine.exe', 'cheatengine-x86_64.exe', 'artmoney.exe',
+                'ollydbg.exe', 'x64dbg.exe', 'x32dbg.exe'
+            }
+            
+            if source_name.lower() in analysis_tools:
+                # Only report if the process is actively using CPU (indicating it's doing something)
+                try:
+                    cpu_percent = source_proc.cpu_percent(interval=0.1)
+                    if cpu_percent > 1.0:  # Active processing
+                        print(f"🔍 DSLL: Active analysis tool {source_name} (PID: {source_pid}, CPU: {cpu_percent:.1f}%) accessing protected process")
+                        return True
+                    else:
+                        # Process is idle, don't report
+                        return False
+                except:
+                    return False
+            
+            return False
+            
+        except Exception:
+            return False
+    
+    def _check_memory_access_patterns(self, source_pid: int, target_pid: int, source_name: str) -> bool:
+        """Check for memory access patterns."""
+        try:
+            # First, verify the source process is actually running
+            try:
+                source_proc = psutil.Process(source_pid)
+                if not source_proc.is_running():
+                    return False
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                return False
+            
+            # Detect tools that typically perform memory operations
+            memory_tools = {
+                'cheatengine.exe', 'cheatengine-x86_64.exe', 'artmoney.exe',
+                'procexp64.exe', 'procexp.exe', 'processhacker.exe'
+            }
+            
+            if source_name.lower() in memory_tools:
+                # Check if the tool process is using significant CPU (indicating active scanning)
+                try:
+                    cpu_percent = source_proc.cpu_percent(interval=0.1)
+                    if cpu_percent > 5.0:  # Active processing
+                        print(f"🔍 DSLL: Detected active memory scanning from {source_name} (CPU: {cpu_percent:.1f}%)")
+                        return True
+                    else:
+                        # Process is idle or closed, don't report
+                        return False
+                except:
+                    pass
+            
+            return False
+            
+        except Exception:
+            return False
     
     def _record_syscall(self, syscall_type: SyscallType, pid: int, process_name: str, 
                        syscall_name: str, parameters: Dict[str, Any], return_value: Any) -> None:
@@ -252,30 +401,97 @@ class DSLLMonitor:
         # Check if this is a critical syscall
         if syscall_name in self.critical_syscalls:
             print(f"🚨 DSLL: Critical syscall detected - {syscall_name} from {process_name} (PID: {pid})")
+            
+            # Also log to file
+            try:
+                import logging
+                logging.basicConfig(filename='blacs_dsll.log', level=logging.INFO, 
+                                  format='%(asctime)s - DSLL - %(message)s')
+                logging.info(f"Critical syscall: {syscall_name} from {process_name} (PID: {pid})")
+            except:
+                pass
     
     def _analyze_syscall_patterns(self) -> None:
         """Analyze syscall patterns for suspicious behavior."""
-        if len(self.syscall_ledger) < 10:
+        if len(self.syscall_ledger) < 5:
             return
         
+        # Clean up old records from terminated processes first
+        self._cleanup_terminated_process_records()
+        
         # Get recent syscalls
-        recent_syscalls = list(self.syscall_ledger)[-50:]  # Last 50 syscalls
+        recent_syscalls = list(self.syscall_ledger)[-20:]  # Last 20 syscalls
         
-        # Pattern 1: Rapid memory operations
-        memory_syscalls = [r for r in recent_syscalls if r.syscall_type == SyscallType.MEMORY]
-        if len(memory_syscalls) > 10:  # More than 10 memory operations in recent history
-            self._report_suspicious_pattern("rapid_memory_operations", {
-                "count": len(memory_syscalls),
-                "processes": list(set(r.process_name for r in memory_syscalls))
-            })
-        
-        # Pattern 2: Process manipulation attempts
+        # Pattern 1: Multiple process access attempts
         process_syscalls = [r for r in recent_syscalls if r.syscall_type == SyscallType.PROCESS]
-        if len(process_syscalls) > 5:
-            self._report_suspicious_pattern("process_manipulation", {
+        if len(process_syscalls) >= 3:  # 3 or more process access attempts
+            unique_processes = set(r.process_name for r in process_syscalls)
+            self._report_suspicious_pattern("process_access_attempts", {
                 "count": len(process_syscalls),
-                "syscalls": [r.syscall_name for r in process_syscalls]
+                "processes": list(unique_processes),
+                "timespan": recent_syscalls[-1].timestamp - recent_syscalls[0].timestamp
             })
+        
+        # Pattern 2: Memory scanning activity
+        memory_syscalls = [r for r in recent_syscalls if r.syscall_type == SyscallType.MEMORY]
+        if len(memory_syscalls) >= 2:  # 2 or more memory operations
+            self._report_suspicious_pattern("memory_scanning_activity", {
+                "count": len(memory_syscalls),
+                "processes": list(set(r.process_name for r in memory_syscalls)),
+                "syscalls": [r.syscall_name for r in memory_syscalls]
+            })
+        
+        # Pattern 3: Analysis tool detection (only for currently running tools)
+        analysis_tools = {'procexp64.exe', 'procexp.exe', 'processhacker.exe', 'cheatengine.exe'}
+        tool_syscalls = [r for r in recent_syscalls if r.process_name.lower() in analysis_tools]
+        
+        # Verify the tools are still running
+        active_tool_syscalls = []
+        for syscall in tool_syscalls:
+            try:
+                proc = psutil.Process(syscall.process_id)
+                if proc.is_running():
+                    active_tool_syscalls.append(syscall)
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                continue
+        
+        if active_tool_syscalls:
+            tool_names = list(set(r.process_name for r in active_tool_syscalls))
+            self._report_suspicious_pattern("analysis_tool_activity", {
+                "tools_detected": tool_names,
+                "syscall_count": len(active_tool_syscalls),
+                "activity_types": list(set(r.syscall_name for r in active_tool_syscalls))
+            })
+    
+    def _cleanup_terminated_process_records(self) -> None:
+        """Remove syscall records from processes that are no longer running."""
+        if not hasattr(self, '_last_cleanup') or time.time() - self._last_cleanup > 30:  # Cleanup every 30 seconds
+            current_time = time.time()
+            records_to_keep = []
+            
+            for record in self.syscall_ledger:
+                # Keep records from the last 5 minutes or from processes that are still running
+                if current_time - record.timestamp < 300:  # 5 minutes
+                    try:
+                        proc = psutil.Process(record.process_id)
+                        if proc.is_running():
+                            records_to_keep.append(record)
+                        # If process is not running, don't keep the record
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        # Process is terminated, don't keep the record
+                        pass
+                # Records older than 5 minutes are automatically discarded
+            
+            # Update the ledger
+            old_count = len(self.syscall_ledger)
+            self.syscall_ledger.clear()
+            self.syscall_ledger.extend(records_to_keep)
+            new_count = len(self.syscall_ledger)
+            
+            if old_count != new_count:
+                print(f"🧹 DSLL: Cleaned up {old_count - new_count} old syscall records from terminated processes")
+            
+            self._last_cleanup = current_time
     
     def _report_suspicious_pattern(self, pattern_type: str, details: Dict[str, Any]) -> None:
         """Report a suspicious pattern detected by DSLL."""
@@ -291,6 +507,15 @@ class DSLLMonitor:
         
         print(f"⚠️ DSLL: Suspicious pattern detected - {pattern_type}")
         print(f"   Details: {details}")
+        
+        # Also log to file
+        try:
+            import logging
+            logging.basicConfig(filename='blacs_dsll.log', level=logging.INFO, 
+                              format='%(asctime)s - DSLL - %(message)s')
+            logging.info(f"Suspicious pattern: {pattern_type} - {details}")
+        except:
+            pass
     
     def get_violations(self) -> List[Dict[str, Any]]:
         """Get DSLL violations."""

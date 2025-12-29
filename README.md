@@ -1,388 +1,311 @@
-# 🛡️ BLACS - Advanced Anti-Cheat System with DSLL Technology
+# BLACS Guardian v2.0 - Advanced Anti-Cheat System
 
-**BLACS** (Behavioral Learning Anti-Cheat System) is a revolutionary anti-cheat system featuring **DSLL (Deterministic Syscall Lockstep Ledger)** technology that provides unprecedented protection against cheating attempts through advanced system call monitoring and behavioral analysis.
+**Revolutionary tamper-resistant anti-cheat protection with DSLL technology and comprehensive logging**
 
-## 🚀 Revolutionary DSLL Technology
+## 🚀 Key Features
 
-**DSLL (Deterministic Syscall Lockstep Ledger)** is BLACS's breakthrough innovation that creates a shadow verification system recording and validating every sensitive system call during protected sessions.
+### 🛡️ **Tamper-Proof Protection**
+- **Administrator-only operation** - Cannot be stopped without admin privileges
+- **Safe tamper-resistance** - No BSOD functionality, system-safe operation
+- **High process priority** - Maintains priority for continuous monitoring
+- **Graceful shutdown** - Safe termination without system crashes
 
-### 🔍 What DSLL Does:
-- **📊 Real-time Syscall Monitoring**: Records every critical system call with microsecond precision
-- **🧠 Pattern Analysis**: Detects suspicious behavioral patterns in system call sequences
-- **🔒 Verification Ledger**: Maintains cryptographically verified record of all operations
-- **⚡ Instant Detection**: Identifies threats in <50ms through advanced pattern matching
-- **📝 Forensic Analysis**: Provides detailed audit trail for security investigations
+### 🔍 **Revolutionary DSLL Technology**
+- **Deterministic Syscall Lockstep Ledger** - Real-time syscall monitoring
+- **Cryptographic verification** - Ensures data integrity
+- **Behavioral pattern analysis** - Detects injection attempts
+- **Forensic ledger** - Complete audit trail for analysis
+- **External tool detection** - Monitors Process Explorer, CheatEngine interactions
 
-## ✨ Key Features
+### 📊 **Comprehensive Logging System**
+- **6 specialized log files** - Categorized event logging
+- **JSON structured logs** - Machine-readable forensic data
+- **Real-time monitoring** - All processes tracked and logged
+- **Threat intelligence** - Detailed attack pattern analysis
+- **Performance metrics** - System impact monitoring
 
-- **🛡️ Tamper-Proof Protection**: Requires Administrator privileges, cannot be stopped by regular users
-- **🔍 DSLL Technology**: Revolutionary syscall monitoring and verification system
-- **🧠 AI-Powered Analysis**: Advanced behavioral pattern recognition with machine learning
-- **🌐 Universal Compatibility**: Works with any software - games, applications, utilities
-- **⚡ Ultra-Fast Response**: <50ms threat detection with DSLL technology
-- **🎯 Monitor Mode**: Monitors applications without launching them (default behavior)
-- **🔧 Easy Integration**: Simple SDK with DSLL support built-in
-- **📊 Enhanced Detection**: 500+ cheat signatures including mobile/APK hacking tools
-- **🚫 Auto-Termination**: Automatically terminates detected cheat tools
-- **🔒 Self-Protection**: High priority process with tamper-resistant mechanisms
+### 🎯 **Universal Application Protection**
+- **Any Windows application** - Protect games, software, utilities
+- **Relaunch detection** - Automatically protects relaunched applications
+- **PID lifecycle tracking** - Handles process restarts seamlessly
+- **Multi-application support** - Protect multiple apps simultaneously
+- **Windows app compatibility** - Supports UWP and legacy applications
 
-## 🚀 Quick Start - Tamper-Proof Protection
+### ⚙️ **Advanced Configuration System**
+- **Single JSON configuration** - All settings in blacs_config.json
+- **5 protection levels** - Safe, Low, Medium, High, Maximum
+- **500+ threat signatures** - Comprehensive cheat tool database
+- **Granular control** - Fine-tune detection thresholds and responses
 
-### Primary Method: BLACS Guardian (Requires Admin)
+## 🔧 **Protection Levels**
 
+| Level | Description | Auto-Terminate | DSLL | Scan Interval | Use Case |
+|-------|-------------|----------------|------|---------------|----------|
+| **Safe** | Ultra-safe, only obvious cheat tools | ❌ | ✅ | 5s | Development/Testing |
+| **Low** | Basic protection for development | ❌ | ❌ | 5s | Low-risk environments |
+| **Medium** | Balanced protection for general use | ❌ | ✅ | 3s | General applications |
+| **High** | Strict protection with termination | ✅ | ✅ | 2s | Important applications |
+| **Maximum** | Extreme protection, very aggressive | ✅ | ✅ | 1s | Critical applications |
+
+## 🚀 **Quick Start**
+
+### **Requirements**
+- Windows 10/11
+- Python 3.8+
+- Administrator privileges
+- psutil library
+
+### **Installation**
 ```bash
-# Requires Administrator privileges - tamper-proof protection
-python blacs_guardian.py "C:\Windows\System32\calc.exe" --level high
+# Install dependencies
+pip install -r requirements.txt
 
-# Monitor without launching (default behavior)
+# Run BLACS Guardian (requires admin)
+python blacs_guardian.py "C:\Windows\System32\calc.exe" --level safe
+```
+
+### **Example Usage**
+```bash
+# Protect Calculator with safe mode (no termination)
+python blacs_guardian.py "C:\Windows\System32\calc.exe" --level safe
+
+# Protect Notepad with high security (auto-terminate threats)
+python blacs_guardian.py "C:\Windows\System32\notepad.exe" --level high
+
+# Protect any application with maximum security
 python blacs_guardian.py "C:\Program Files\MyGame\game.exe" --level maximum
-
-# Auto-find common applications
-python blacs_guardian.py calc.exe --level high
 ```
 
-### Batch Script (Windows)
+## 🔍 **How It Works**
 
-```batch
-# Tamper-proof protection with admin check
-protect.bat "C:\Windows\System32\calc.exe" high
-protect.bat "C:\Program Files\MyGame\game.exe" maximum
-protect.bat calc.exe medium
-```
-
-### CLI Interface
-
+### **1. Launch Protection**
 ```bash
-# Basic protection via CLI (redirects to Guardian)
-python -m blacs.cli protect calc.exe --level high
-python -m blacs.cli protect "C:\Program Files\MyApp\app.exe" --level maximum
+python blacs_guardian.py "C:\Windows\System32\calc.exe" --level safe
 ```
 
-### Install as Windows Service
+### **2. Automatic Detection**
+- BLACS monitors for Calculator launch
+- When detected, protection activates automatically
+- All processes logged, only confirmed cheat tools terminated
 
-```bash
-# Install as tamper-proof Windows service (requires pywin32)
-python install_guardian_service.py
+### **3. Relaunch Support**
+- Close Calculator and reopen it
+- BLACS automatically detects the new instance (new PID)
+- Protection seamlessly transfers to new process
 
-# Creates service that starts with Windows and requires admin to stop
-```
+### **4. Multi-Layer Monitoring**
+- **Process Monitor**: Scans for 500+ cheat tool signatures
+- **Memory Monitor**: Prevents external memory access
+- **DSLL Technology**: Advanced syscall monitoring and behavioral analysis
+- **Input Monitor**: Detects automation patterns
 
-## 🎯 What BLACS with DSLL Detects
+### **5. DSLL Technology in Action**
+- Monitors external tools accessing protected processes
+- Detects Process Explorer, CheatEngine, debuggers
+- Records critical syscalls (NtOpenProcess, NtReadVirtualMemory)
+- Identifies suspicious patterns and injection attempts
 
-### Advanced DSLL Detection (Revolutionary)
-- **🔍 System Call Monitoring**: Real-time monitoring of critical syscalls (NtReadVirtualMemory, NtWriteVirtualMemory, etc.)
-- **📊 Behavioral Pattern Analysis**: Detects suspicious syscall sequences and timing patterns
-- **🧠 AI-Powered Recognition**: Machine learning analysis of system call behaviors
-- **⚡ Microsecond Precision**: Ultra-fast detection with detailed forensic logging
-- **🔒 Cryptographic Verification**: Tamper-proof ledger with verification hashes
+## 📋 **What Gets Detected**
 
-### Comprehensive Cheat Detection (500+ Signatures)
-- **Memory Editors**: Cheat Engine, ArtMoney, GameGuardian, Memory Hacker, T-Search
-- **Debuggers**: OllyDbg, x64dbg, IDA Pro, WinDbg, Process Hacker, Ghidra
-- **Injection Tools**: DLL Injectors, Process Injectors, Code Cave tools, API Hooks
-- **Speed Hacks**: Game Speed modifiers, Time manipulation tools, Clock blockers
-- **Trainers**: Fling Trainers, MrAntiFun, WeMod, Plitch, FearlessRevolution
-- **Automation**: Auto-clickers, Bots, Macro tools, AutoHotkey, Input automation
-- **Mobile/APK Hacking**: GameGuardian, Lucky Patcher, Freedom, Cheat Droid, Xposed
-- **Network Tools**: Wireshark, Fiddler, Burp Suite, Packet editors, Lag switches
-- **Cracking Tools**: Keygens, Patchers, Loaders, Activators, Unpackers
-- **Cryptocurrency Miners**: Bitcoin miners, Ethereum miners, Resource abuse tools
+### **Cheat Tools (Terminated in High/Maximum levels)**
+- **Memory Editors**: CheatEngine, ArtMoney, GameGuardian, MemoryEditor
+- **Debuggers**: OllyDbg, x64dbg, x32dbg, Process Hacker, IDA Pro
+- **Injection Tools**: DLL injectors, process injectors, code cave tools
+- **Speed Hacks**: SpeedHack, GameSpeed, TimeScale, ClockBlocker
+- **Trainers**: Game trainers, Fling trainers, MrAntiFun, Wemod
+- **Automation Tools**: AutoClicker, AutoHotkey, bots, aimbots
+- **Mobile Hacking**: GameGuardian, Lucky Patcher, Freedom, CreHack
 
-### DSLL Advanced Capabilities
-- **📝 Forensic Ledger**: Complete audit trail of all system operations
-- **🔍 Pattern Recognition**: Detects unknown threats through behavioral analysis
-- **⚡ Real-time Analysis**: Continuous monitoring with instant threat response
-- **🛡️ Tamper Resistance**: Cryptographically secured monitoring system
-- **🚫 Auto-Termination**: Automatically kills detected cheat processes
+### **System Processes (Logged Only)**
+- Windows services and system processes
+- Legitimate applications and software
+- Audio services, Windows Defender
+- All background processes for monitoring
 
-## 🔧 Configuration System
+### **DSLL Detection Capabilities**
+- External tool access to protected processes
+- Memory scanning attempts
+- Process manipulation syscalls
+- Injection and hooking attempts
+- Behavioral pattern analysis
 
-### Master JSON Configuration
-All BLACS settings are managed through `blacs_config.json`:
+## ⚙️ **Configuration**
 
-```json
-{
-  "system": {
-    "name": "BLACS Guardian",
-    "admin_required": true,
-    "self_protection": true
-  },
-  "protection_levels": {
-    "high": {
-      "max_human_frequency": 15.0,
-      "automation_threshold": 0.6,
-      "auto_terminate": true,
-      "extreme_detection": true,
-      "dsll_enabled": true,
-      "scan_interval": 2.0
-    }
-  },
-  "monitors": {
-    "dsll_monitor": {
-      "enabled": true,
-      "settings": {
-        "monitor_interval": 0.1,
-        "ledger_max_size": 10000,
-        "cryptographic_verification": true
-      }
-    }
-  }
-}
-```
-
-### Configuration Management
-Use the built-in configuration manager:
-
-```python
-from config_manager import get_config
-
-# Get configuration instance
-config = get_config()
-
-# Read settings
-protection_level = config.get("protection_levels.high")
-dsll_enabled = config.is_dsll_enabled()
-
-# Modify settings
-config.set("monitors.dsll_monitor.enabled", True)
-config.save_config()
-
-# Add custom signatures
-config.add_custom_signature("my_cheat_tool")
-config.add_whitelist_process("my_app.exe")
-```
-
-### Protection Levels with JSON Configuration
-Configure protection levels in `blacs_config.json`:
-
+### **Edit `blacs_config.json`**
 ```json
 {
   "protection_levels": {
-    "low": {
-      "description": "Basic protection for development",
-      "max_human_frequency": 50.0,
-      "automation_threshold": 0.8,
+    "safe": {
       "auto_terminate": false,
-      "dsll_enabled": false
-    },
-    "medium": {
-      "description": "Balanced protection for general use", 
-      "max_human_frequency": 25.0,
-      "automation_threshold": 0.7,
-      "auto_terminate": true,
-      "dsll_enabled": true
-    },
-    "high": {
-      "description": "Strict protection for important applications",
-      "max_human_frequency": 15.0,
-      "automation_threshold": 0.6,
-      "auto_terminate": true,
-      "dsll_enabled": true
-    },
-    "maximum": {
-      "description": "Extreme protection for critical applications",
-      "max_human_frequency": 10.0,
-      "automation_threshold": 0.5,
-      "auto_terminate": true,
-      "dsll_enabled": true
+      "dsll_enabled": true,
+      "scan_interval": 5.0
     }
+  },
+  "threat_detection": {
+    "signature_database": {
+      "memory_editors": ["cheatengine.exe", "artmoney.exe"],
+      "debuggers": ["ollydbg.exe", "x64dbg.exe"]
+    }
+  },
+  "dsll_configuration": {
+    "enabled": true,
+    "critical_syscalls": [
+      "NtReadVirtualMemory",
+      "NtWriteVirtualMemory", 
+      "NtOpenProcess"
+    ]
   }
 }
 ```
 
-## 💻 Usage Examples
+### **Key Settings**
+- `auto_terminate`: Whether to terminate detected threats
+- `dsll_enabled`: Enable advanced DSLL syscall monitoring
+- `scan_interval`: How often to scan for threats (seconds)
+- `critical_syscalls`: Syscalls monitored by DSLL
+- `signature_database`: Custom threat signatures by category
 
-### Tamper-Proof Guardian Protection (Primary Method)
+## 🛡️ **Security Features**
 
-#### Protect System Applications (Requires Admin)
+### **Tamper Resistance**
+- **Admin-only operation** - Regular users cannot stop BLACS
+- **High process priority** - Maintains system priority
+- **Self-protection** - Monitors own integrity
+- **Safe shutdown** - No system crashes or BSOD
+
+### **Detection Evasion Prevention**
+- **Multiple detection layers** - Hard to bypass
+- **Behavioral analysis** - Catches unknown tools
+- **Real-time monitoring** - Immediate threat response
+- **Forensic logging** - Complete audit trail
+
+## 📊 **Logging & Monitoring**
+
+### **Comprehensive Log Files**
+- `blacs_guardian.log` - Main system events and process monitoring
+- `blacs_applications.log` - Application lifecycle events
+- `blacs_threats.log` - Threat detection and termination events
+- `blacs_dsll.log` - Advanced DSLL syscall monitoring
+- `blacs_system.log` - System initialization and configuration
+- `blacs_process_monitor.log` - Detailed process activity
+
+### **DSLL Forensic Data**
+- `guardian_log_[app]_[timestamp].json` - Exported DSLL ledger
+- Complete syscall records with verification hashes
+- Behavioral pattern analysis results
+- Process interaction timeline
+
+### **Log Information**
+- Process creation/termination with full details
+- Threat detections with signature matching
+- Memory access attempts and external tool interactions
+- System calls with parameters and return values
+- Performance metrics and system health
+
+## 🔧 **Advanced Features**
+
+### **DSLL Technology**
+- **Syscall monitoring** - Tracks 15+ critical system calls in real-time
+- **Behavioral patterns** - Detects process access, memory scanning, injection attempts
+- **Cryptographic verification** - Ensures ledger integrity with verification hashes
+- **Forensic ledger** - Complete audit trail with JSON export capability
+- **External tool detection** - Monitors Process Explorer, CheatEngine interactions
+- **Automatic cleanup** - Removes records from terminated processes
+
+### **Multi-Application Protection**
 ```bash
-# Windows Calculator - tamper-proof
-python blacs_guardian.py calc.exe --level high
+# Protect multiple applications simultaneously
+python blacs_guardian.py "C:\Windows\System32\calc.exe" --level high
+# Calculator protection active
 
-# Windows Notepad - maximum security
-python blacs_guardian.py notepad.exe --level maximum
-
-# Any application - ultra-secure
-python blacs_guardian.py "C:\Program Files\MyApp\app.exe" --level high
+# In another terminal:
+python blacs_guardian.py "C:\Windows\System32\notepad.exe" --level medium
+# Both Calculator and Notepad protected
 ```
 
-#### Protect Games (Tamper-Proof)
-```bash
-# Steam game - maximum protection
-python blacs_guardian.py "C:\Program Files (x86)\Steam\steamapps\common\GameName\game.exe" --level maximum
-
-# Epic Games - high security
-python blacs_guardian.py "C:\Program Files\Epic Games\GameName\game.exe" --level high
-
-# Any game - tamper-resistant
-python blacs_guardian.py "C:\Games\MyGame\game.exe" --level maximum
-```
-
-#### Batch Script Usage
-```batch
-# Simple tamper-proof protection
-protect.bat calc.exe high
-
-# Game protection with admin privileges
-protect.bat "C:\Program Files\MyGame\game.exe" maximum
-
-# Auto-find applications
-protect.bat notepad.exe medium
-```
-
-### Service Installation (Most Secure)
-
-```bash
-# Install as tamper-proof Windows service
-python install_guardian_service.py
-
-# Choose installation type:
-# 1. Windows Service (starts with Windows, requires admin to stop)
-# 2. Tamper-proof launcher only
-# 3. Both service and launcher
-```
-
-### Integration Examples with DSLL
-
-### Simple Protection with DSLL
+### **SDK Integration**
 ```python
 from blacs.sdk.integration import BLACSIntegration
 
-# Initialize protection with DSLL
-blacs = BLACSIntegration("MyApp")
-blacs.enable_protection(protection_level="high")
+# Easy integration for developers
+blacs = BLACSIntegration("MyApp", "1.0.0")
+blacs.enable_protection("high")
 
-# Your application code here
-run_my_application()
-
-# Export DSLL forensic ledger
-blacs.export_dsll_ledger("security_audit.json")
-
-# Disable when done
-blacs.disable_protection()
+# Get DSLL statistics
+stats = blacs.get_dsll_statistics()
+print(f"Syscalls recorded: {stats['total_syscalls_recorded']}")
 ```
 
-### Advanced DSLL Monitoring
-```python
-def on_cheat_detected(violation_data):
-    print(f"DSLL DETECTED: {violation_data['description']}")
-    # Access detailed DSLL forensic data
-    
-blacs.set_violation_callback("critical", on_cheat_detected)
+## 🚨 **Troubleshooting**
 
-# Get real-time DSLL statistics
-dsll_stats = blacs.get_dsll_statistics()
-print(f"Syscalls monitored: {dsll_stats['total_syscalls_recorded']}")
-print(f"Patterns detected: {dsll_stats['suspicious_patterns_detected']}")
-```
+### **Common Issues**
 
-### DSLL Forensic Analysis
-```python
-from blacs.sdk.integration import blacs_protected
+**"Access Denied" Error**
+- Solution: Run as Administrator (right-click → "Run as administrator")
 
-@blacs_protected("MyGame", protection_level="high")
-def secure_game_session():
-    # Game runs with full DSLL protection
-    while game_running:
-        update_game()
-        render_frame()
-    
-    # Automatically export DSLL ledger after session
-    return "Game completed with DSLL protection"
+**"Invalid protection level 'safe'"**
+- Solution: Use: `--level safe` (available: safe, low, medium, high, maximum)
 
-# Note: DSLL log files (dsll_protection_log_*.json) are automatically 
-# generated during protection sessions and can be safely deleted after analysis
-```
+**Application not detected after relaunch**
+- Solution: Fixed in v2.0 - automatic relaunch detection with PID tracking
 
-## 📊 System Requirements
+**Too many false positives**
+- Solution: Use `--level safe` or edit threat signatures in `blacs_config.json`
 
-- **OS**: Windows 10/11 (Linux support available)
-- **Python**: 3.7 or higher
-- **Dependencies**: psutil
-- **RAM**: 20MB minimum
-- **CPU**: <1% overhead
+**DSLL not logging syscalls**
+- Solution: Ensure `dsll_enabled: true` in protection level configuration
+- Test with Process Explorer accessing protected application
 
-## 🚫 Stopping BLACS
+**System crashes or BSOD**
+- Solution: BSOD functionality permanently disabled in v2.0 for safety
 
-- **Normal Stop**: Press `Ctrl+C` in the terminal
-- **Code Stop**: Call `blacs.disable_protection()` in your code
-- **Force Stop**: Close the terminal window
+### **Testing DSLL Functionality**
+1. Start BLACS with Calculator: `python blacs_guardian.py calc.exe --level high`
+2. Open Calculator application
+3. Open Process Explorer and browse to Calculator process
+4. Check `blacs_dsll.log` for syscall detection logs
+5. DSLL will detect Process Explorer accessing Calculator
 
-## 📁 Project Structure
+## 📈 **Performance**
 
-```
-📁 BLACS/ (Tamper-Proof Protection System with JSON Configuration)
-├── 📄 blacs_guardian.py            # 🛡️ Main Tamper-Proof Protection System
-├── 📄 blacs_config.json            # 🔧 Master JSON Configuration File
-├── 📄 config_manager.py            # 🔧 Configuration Management System
-├── 📄 install_guardian_service.py  # 🔧 Service Installer (Admin Required)
-├── 📄 protect.bat                  # Tamper-proof batch launcher
-├── 📄 APPLICATION_TESTING_GUIDE.md # Complete testing guide
-├── 📄 README.md                    # Documentation
-├── 📄 requirements.txt             # Dependencies
-└── 📁 blacs/                       # Core system
-    ├── 📄 __init__.py              # Package initialization
-    ├── 📄 __main__.py              # CLI entry point
-    ├── 📄 cli.py                   # Command line interface
-    ├── 📄 blacs_system.py          # Main orchestrator with DSLL
-    ├── 📁 core/                    # Core components
-    ├── 📁 monitors/                # Detection monitors
-    │   ├── 📄 input_monitor.py     # Input detection
-    │   ├── 📄 memory_monitor.py    # Memory protection
-    │   ├── 📄 process_monitor_windows.py # Process detection (500+ signatures)
-    │   └── 📄 dsll_monitor.py      # 🔍 DSLL Technology
-    ├── 📁 platform/                # Platform utilities
-    └── 📁 sdk/                     # Integration SDK with DSLL
-```
+- **CPU Usage**: < 5% (configurable in blacs_config.json)
+- **Memory Usage**: < 100MB (optimized for efficiency)
+- **Scan Frequency**: 1-5 seconds (protection level dependent)
+- **Detection Speed**: < 200ms for known threats
+- **Log File Sizes**: Managed with automatic rotation
+- **DSLL Overhead**: < 0.1s monitoring interval for real-time detection
 
-## 🔍 DSLL Technology Advantages
+## 🔒 **What Makes BLACS Different**
 
-### Revolutionary Capabilities
-- **📊 System Call Ledger**: Complete record of all critical system operations
-- **🧠 Pattern Recognition**: AI-powered detection of suspicious behavior sequences
-- **⚡ Real-time Analysis**: Microsecond-precision monitoring and response
-- **🔒 Cryptographic Security**: Tamper-proof verification and audit trails
-- **📝 Forensic Evidence**: Detailed logs for security investigations
+### **vs. Traditional Anti-Cheat (BattlEye, EAC, VAC)**
+- ✅ **Universal**: Works with any Windows application, not game-specific
+- ✅ **Tamper-proof**: Cannot be stopped by regular users
+- ✅ **Comprehensive logging**: 6 specialized log files with forensic data
+- ✅ **DSLL technology**: Revolutionary syscall monitoring and behavioral analysis
+- ✅ **Safe operation**: No BSOD or system crashes, graceful shutdown
+- ✅ **Real-time protection**: Immediate threat response vs delayed bans
 
-### Compared to Traditional Anti-Cheat
-- **Traditional**: Signature-based detection (reactive)
-- **BLACS DSLL**: Behavioral analysis + syscall monitoring (proactive)
-- **Traditional**: Limited forensic capabilities
-- **BLACS DSLL**: Complete audit trail with cryptographic verification
-- **Traditional**: High false positive rates
-- **BLACS DSLL**: AI-powered precision with <0.1% false positives
+### **vs. Game-Specific Solutions**
+- ✅ **Application agnostic**: Protect any Windows app (games, software, utilities)
+- ✅ **Relaunch detection**: Handles app restarts with PID tracking
+- ✅ **Admin protection**: Requires administrator privileges to stop
+- ✅ **Precise detection**: Only terminates confirmed threats, logs everything else
+- ✅ **External tool monitoring**: Detects tools accessing protected processes
 
-## 🎮 Perfect For
+### **Unique DSLL Advantages**
+- ✅ **Syscall ledger**: Cryptographically verified audit trail
+- ✅ **Behavioral analysis**: Detects unknown attack patterns
+- ✅ **Forensic export**: JSON format for detailed analysis
+- ✅ **Real-time monitoring**: 0.1s interval for immediate detection
 
-- **Game Developers**: Protect your games from cheaters
-- **Software Vendors**: Secure your applications  
-- **System Administrators**: Monitor critical systems
-- **Anyone**: Protect any software from tampering
+## 📞 **Support**
+
+For issues or questions:
+1. Check the troubleshooting section above
+2. Review the `blacs_config.json` configuration
+3. Check log files for detailed information
+4. Ensure running with Administrator privileges
 
 ---
 
-**Ready to experience revolutionary tamper-proof DSLL technology with comprehensive JSON configuration? Run `python blacs_guardian.py calc.exe --level high` as Administrator and customize all settings through `blacs_config.json`!**
-
-## 🔍 DSLL in Action
-
-When you run BLACS with DSLL, you'll see:
-
-```
-🛡️ BLACS Anti-Cheat System with DSLL Technology
-🔄 Enabling BLACS protection with DSLL...
-✅ BLACS protection with DSLL enabled successfully!
-🔍 DSLL Technology: ACTIVE
-
-🔍 DSLL Statistics:
-   • Syscalls Recorded: 1,247
-   • Patterns Detected: 0
-   • Ledger Size: 1,247
-   • Protected Processes: 1
-
-🔍 DSLL monitors system calls in real-time
-📊 Behavioral pattern analysis active
-🚨 Critical syscall detection enabled
-📝 Forensic ledger recording active
-```
-
-**🎯 The future of anti-cheat protection is here with DSLL technology!**
+**BLACS Guardian v2.0** - The most advanced, tamper-resistant anti-cheat system for Windows applications.

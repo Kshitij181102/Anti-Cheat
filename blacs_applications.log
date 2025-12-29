@@ -1,0 +1,8 @@
+2025-12-29 12:44:45,661 - INFO - TEST_APPLICATION_EVENT: {
+  "event": "TEST_APPLICATION_EVENT",
+  "timestamp": "2025-12-29T12:44:45.661460",
+  "application_name": "test_app.exe",
+  "process_id": 12345,
+  "event_type": "test_launch",
+  "message": "Application logging test successful"
+}

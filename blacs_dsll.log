@@ -1,0 +1,407 @@
+2025-12-29 12:09:33,186 - DSLL - Added process 8020 to DSLL protection
+2025-12-29 12:09:33,194 - DSLL - DSLL monitoring started successfully
+2025-12-29 12:09:33,208 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:33,496 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:33,773 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:34,041 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:34,329 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:34,509 - DSLL - Suspicious pattern: process_access_attempts - {'count': 5, 'processes': ['procexp64.exe'], 'timespan': 1.1207637786865234}
+2025-12-29 12:09:34,511 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 5, 'activity_types': ['NtOpenProcess']}
+2025-12-29 12:09:34,625 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:34,788 - DSLL - Suspicious pattern: process_access_attempts - {'count': 6, 'processes': ['procexp64.exe'], 'timespan': 1.4145171642303467}
+2025-12-29 12:09:34,789 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 6, 'activity_types': ['NtOpenProcess']}
+2025-12-29 12:09:34,905 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:35,071 - DSLL - Suspicious pattern: process_access_attempts - {'count': 7, 'processes': ['procexp64.exe'], 'timespan': 1.6957571506500244}
+2025-12-29 12:09:35,071 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 7, 'activity_types': ['NtOpenProcess']}
+2025-12-29 12:09:35,184 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:35,348 - DSLL - Suspicious pattern: process_access_attempts - {'count': 8, 'processes': ['procexp64.exe'], 'timespan': 1.9746031761169434}
+2025-12-29 12:09:35,348 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 8, 'activity_types': ['NtOpenProcess']}
+2025-12-29 12:09:35,462 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:35,566 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:09:35,631 - DSLL - Suspicious pattern: process_access_attempts - {'count': 9, 'processes': ['procexp64.exe'], 'timespan': 2.354487419128418}
+2025-12-29 12:09:35,632 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 10, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:35,745 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:35,905 - DSLL - Suspicious pattern: process_access_attempts - {'count': 10, 'processes': ['procexp64.exe'], 'timespan': 2.5353784561157227}
+2025-12-29 12:09:35,905 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 11, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:36,018 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:36,180 - DSLL - Suspicious pattern: process_access_attempts - {'count': 11, 'processes': ['procexp64.exe'], 'timespan': 2.808704137802124}
+2025-12-29 12:09:36,180 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 12, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:36,294 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:36,455 - DSLL - Suspicious pattern: process_access_attempts - {'count': 12, 'processes': ['procexp64.exe'], 'timespan': 3.085010290145874}
+2025-12-29 12:09:36,456 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 13, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:36,571 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:36,675 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:09:36,737 - DSLL - Suspicious pattern: process_access_attempts - {'count': 13, 'processes': ['procexp64.exe'], 'timespan': 3.4644052982330322}
+2025-12-29 12:09:36,738 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:36,739 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 15, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:36,851 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:37,014 - DSLL - Suspicious pattern: process_access_attempts - {'count': 14, 'processes': ['procexp64.exe'], 'timespan': 3.642172336578369}
+2025-12-29 12:09:37,014 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:37,015 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 16, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:37,130 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:37,290 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 3.9197306632995605}
+2025-12-29 12:09:37,290 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:37,292 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 17, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:37,406 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:37,568 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.196927547454834}
+2025-12-29 12:09:37,569 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:37,569 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 18, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:37,684 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:37,844 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.473666429519653}
+2025-12-29 12:09:37,844 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:37,845 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 19, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:37,959 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:38,118 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.749774932861328}
+2025-12-29 12:09:38,119 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:38,119 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:38,233 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:38,391 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.734697580337524}
+2025-12-29 12:09:38,391 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:38,392 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:38,507 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:38,669 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.73300838470459}
+2025-12-29 12:09:38,669 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:38,671 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:38,784 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:38,944 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.741046905517578}
+2025-12-29 12:09:38,945 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:38,946 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:39,059 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:39,219 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.729301691055298}
+2025-12-29 12:09:39,220 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:39,221 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:39,336 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:39,500 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.711756944656372}
+2025-12-29 12:09:39,501 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:39,501 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:39,616 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:39,785 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.711374998092651}
+2025-12-29 12:09:39,786 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:39,786 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:39,901 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:40,004 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:09:40,069 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.541880130767822}
+2025-12-29 12:09:40,069 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:40,069 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:40,183 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:40,347 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.619650602340698}
+2025-12-29 12:09:40,348 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:40,348 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:40,461 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:40,621 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.7153003215789795}
+2025-12-29 12:09:40,621 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:40,622 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:40,736 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:40,838 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:09:40,901 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.543748378753662}
+2025-12-29 12:09:40,902 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:40,903 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:41,017 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:41,181 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.445018768310547}
+2025-12-29 12:09:41,181 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:41,181 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:41,302 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:41,463 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.6272618770599365}
+2025-12-29 12:09:41,463 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:41,464 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:41,578 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:41,740 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 4.727020740509033}
+2025-12-29 12:09:41,740 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:41,740 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:41,854 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:41,957 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:09:42,018 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.549933433532715}
+2025-12-29 12:09:42,019 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:42,019 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:42,135 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:42,300 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.4518938064575195}
+2025-12-29 12:09:42,301 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:42,302 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:42,419 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:42,582 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.458471298217773}
+2025-12-29 12:09:42,583 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:42,583 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:42,698 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:42,856 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.465273141860962}
+2025-12-29 12:09:42,856 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:42,857 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:42,971 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:09:43,134 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.4645094871521}
+2025-12-29 12:09:43,134 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:09:43,135 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:09:43,249 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:10,524 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.465958118438721}
+2025-12-29 12:10:10,525 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:10,526 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:10,637 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:10,798 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.577715635299683}
+2025-12-29 12:10:10,798 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:10,798 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:10,913 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:11,078 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.576635599136353}
+2025-12-29 12:10:11,078 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:11,079 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:11,192 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:11,349 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.575761795043945}
+2025-12-29 12:10:11,351 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:11,351 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:11,466 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:11,625 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.56573724746704}
+2025-12-29 12:10:11,625 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:11,626 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:11,740 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:11,899 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.735987901687622}
+2025-12-29 12:10:11,899 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:11,900 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:12,013 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:12,171 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 31.82955574989319}
+2025-12-29 12:10:12,171 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:12,171 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:12,286 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:12,389 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:12,446 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.65339994430542}
+2025-12-29 12:10:12,446 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:12,447 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:12,562 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:12,727 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.723471641540527}
+2025-12-29 12:10:12,728 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:12,728 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:12,844 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:12,999 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 31.82878279685974}
+2025-12-29 12:10:12,999 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:13,001 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:13,112 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:13,268 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 31.81152892112732}
+2025-12-29 12:10:13,269 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:13,269 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:13,382 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:13,484 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:13,537 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.630747318267822}
+2025-12-29 12:10:13,537 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:13,538 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:13,652 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:13,811 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.695966243743896}
+2025-12-29 12:10:13,811 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:13,811 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:13,925 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:14,079 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 31.789841413497925}
+2025-12-29 12:10:14,079 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:14,081 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:14,194 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:14,353 - DSLL - Suspicious pattern: process_access_attempts - {'count': 18, 'processes': ['procexp64.exe'], 'timespan': 31.77677035331726}
+2025-12-29 12:10:14,353 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 2, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:14,353 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:14,468 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:14,569 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:14,630 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.599222898483276}
+2025-12-29 12:10:14,630 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:14,631 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:14,744 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:14,902 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 31.49422597885132}
+2025-12-29 12:10:14,902 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:14,903 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:15,017 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:15,184 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.379401683807373}
+2025-12-29 12:10:15,184 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:15,184 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:15,296 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:15,459 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.384132623672485}
+2025-12-29 12:10:15,459 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:15,460 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:15,574 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:15,732 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.3819310665130615}
+2025-12-29 12:10:15,733 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:15,733 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:15,846 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:16,009 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.379360914230347}
+2025-12-29 12:10:16,009 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:16,009 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:16,123 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:16,282 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.383285760879517}
+2025-12-29 12:10:16,283 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:16,283 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:16,397 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:16,561 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.383640766143799}
+2025-12-29 12:10:16,561 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:16,561 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:16,675 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:16,836 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.390260457992554}
+2025-12-29 12:10:16,836 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:16,836 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:16,949 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:17,054 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:17,114 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.4913434982299805}
+2025-12-29 12:10:17,114 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:17,114 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:17,227 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:17,330 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:17,391 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.216779947280884}
+2025-12-29 12:10:17,391 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:17,391 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:17,507 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:17,609 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:17,705 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 4.124399423599243}
+2025-12-29 12:10:17,706 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:17,706 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:17,820 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:17,978 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.167637586593628}
+2025-12-29 12:10:17,979 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:17,979 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:18,094 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:18,197 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:18,282 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 4.002357482910156}
+2025-12-29 12:10:18,283 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:18,283 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:18,396 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:18,559 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 3.930263042449951}
+2025-12-29 12:10:18,560 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:18,560 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:18,675 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:18,778 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:18,848 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 4.03365159034729}
+2025-12-29 12:10:18,849 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:18,849 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:18,967 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:19,131 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 3.9494457244873047}
+2025-12-29 12:10:19,131 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:19,132 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:19,246 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:19,418 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 3.950141191482544}
+2025-12-29 12:10:19,418 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:19,419 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:19,532 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:19,690 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 3.9571878910064697}
+2025-12-29 12:10:19,691 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:19,691 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:19,805 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:19,961 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 3.959167003631592}
+2025-12-29 12:10:19,962 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:19,962 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:20,076 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:20,235 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 3.952988624572754}
+2025-12-29 12:10:20,235 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:20,235 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:20,349 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:20,451 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:20,508 - DSLL - Suspicious pattern: process_access_attempts - {'count': 14, 'processes': ['procexp64.exe'], 'timespan': 3.776608467102051}
+2025-12-29 12:10:20,508 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 6, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:20,508 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:20,622 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:20,781 - DSLL - Suspicious pattern: process_access_attempts - {'count': 14, 'processes': ['procexp64.exe'], 'timespan': 3.6716206073760986}
+2025-12-29 12:10:20,781 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 6, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:20,781 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:20,894 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:21,062 - DSLL - Suspicious pattern: process_access_attempts - {'count': 14, 'processes': ['procexp64.exe'], 'timespan': 3.841676950454712}
+2025-12-29 12:10:21,062 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 6, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:21,062 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:21,175 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:21,333 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 3.9463508129119873}
+2025-12-29 12:10:21,334 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:21,334 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:21,449 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:21,607 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 4.119621515274048}
+2025-12-29 12:10:21,607 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:21,607 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:21,720 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:21,881 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.213610410690308}
+2025-12-29 12:10:21,881 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:21,883 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:21,996 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:22,155 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.387243032455444}
+2025-12-29 12:10:22,155 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:22,155 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:22,272 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:22,430 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.452410697937012}
+2025-12-29 12:10:22,430 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:22,430 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:22,544 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:22,709 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.450683355331421}
+2025-12-29 12:10:22,709 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:22,709 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:22,823 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:22,926 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:23,014 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.529381275177002}
+2025-12-29 12:10:23,014 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:23,015 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:23,135 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:23,319 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.4600841999053955}
+2025-12-29 12:10:23,320 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:23,320 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:23,437 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:23,598 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.658715724945068}
+2025-12-29 12:10:23,598 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:23,598 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:23,713 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:23,816 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:23,886 - DSLL - Suspicious pattern: process_access_attempts - {'count': 17, 'processes': ['procexp64.exe'], 'timespan': 4.569324254989624}
+2025-12-29 12:10:23,886 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 3, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:23,886 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:24,001 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:24,104 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:24,184 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.298928260803223}
+2025-12-29 12:10:24,184 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:24,184 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:24,308 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:24,462 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.2326905727386475}
+2025-12-29 12:10:24,462 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:24,462 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:24,577 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:24,739 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.225795745849609}
+2025-12-29 12:10:24,739 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:24,739 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:24,852 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:24,956 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:25,019 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.33381199836731}
+2025-12-29 12:10:25,020 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:25,021 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:25,134 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:25,287 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.23986029624939}
+2025-12-29 12:10:25,288 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:25,288 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:25,402 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:25,558 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.227210760116577}
+2025-12-29 12:10:25,559 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:25,559 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:25,674 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:31,838 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 4.223318576812744}
+2025-12-29 12:10:31,839 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:31,839 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:31,955 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:32,113 - DSLL - Suspicious pattern: process_access_attempts - {'count': 16, 'processes': ['procexp64.exe'], 'timespan': 10.236293077468872}
+2025-12-29 12:10:32,113 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 4, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:32,113 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:32,227 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:32,330 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:32,389 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 10.05761981010437}
+2025-12-29 12:10:32,389 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:32,390 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:32,505 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:32,660 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 9.960858583450317}
+2025-12-29 12:10:32,661 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:32,661 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:32,775 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:32,931 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 9.95160460472107}
+2025-12-29 12:10:32,931 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:32,932 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:33,046 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:33,201 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 10.119630336761475}
+2025-12-29 12:10:33,202 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:33,203 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:33,316 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:33,420 - DSLL - Critical syscall: NtReadVirtualMemory from procexp64.exe (PID: 1860)
+2025-12-29 12:10:33,490 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 9.983038425445557}
+2025-12-29 12:10:33,491 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:33,491 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:33,613 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:10:33,773 - DSLL - Suspicious pattern: process_access_attempts - {'count': 15, 'processes': ['procexp64.exe'], 'timespan': 9.899805068969727}
+2025-12-29 12:10:33,773 - DSLL - Suspicious pattern: memory_scanning_activity - {'count': 5, 'processes': ['procexp64.exe'], 'syscalls': ['NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory', 'NtReadVirtualMemory']}
+2025-12-29 12:10:33,774 - DSLL - Suspicious pattern: analysis_tool_activity - {'tools_detected': ['procexp64.exe'], 'syscall_count': 20, 'activity_types': ['NtReadVirtualMemory', 'NtOpenProcess']}
+2025-12-29 12:10:33,888 - DSLL - Critical syscall: NtOpenProcess from procexp64.exe (PID: 1860)
+2025-12-29 12:44:45,661 - INFO - TEST_DSLL_EVENT: {
+  "event": "TEST_DSLL_EVENT",
+  "timestamp": "2025-12-29T12:44:45.661970",
+  "syscall_type": "test_syscall",
+  "process_id": 11111,
+  "pattern_detected": "test_pattern",
+  "message": "DSLL logging test successful"
+}
